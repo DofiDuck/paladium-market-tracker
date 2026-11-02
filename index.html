@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Suivi des achats et reventes</title>
+<style>
+:root{color-scheme:dark;--bg:#10151d;--panel:#192230;--ink:#eef3fa;--muted:#9baabd;--accent:#83d36b;--line:#2d3a4b;--yellow:#eac477;--red:#ff8585}*{box-sizing:border-box}body{margin:0;background:linear-gradient(150deg,#111923,#0d1219);color:var(--ink);font:15px/1.45 system-ui,Segoe UI,Arial,sans-serif;padding:24px}main{max-width:1450px;margin:auto}h1{font-size:clamp(26px,4vw,38px);margin:0}h2{font-size:20px;margin:0 0 12px}p,.hint{color:var(--muted)}.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:17px;margin:16px 0}.tax,.toolbar,.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.tax input{width:90px}.toolbar{justify-content:space-between}.toolbar .actions{margin-left:auto}input,select{font:inherit;color:var(--ink);background:#101720;border:1px solid #3a4a5d;border-radius:8px;padding:7px;width:100%}input:focus,select:focus{outline:2px solid var(--accent);border-color:transparent}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:1420px}th{text-align:left;color:#b7c4d4;font-size:11px;text-transform:uppercase;letter-spacing:.04em;padding:9px 7px;border-bottom:1px solid var(--line);white-space:nowrap}td{padding:7px;border-bottom:1px solid #283342;vertical-align:middle}.num{min-width:92px}.money{white-space:nowrap;font-variant-numeric:tabular-nums}.profit{font-weight:700}.good{color:var(--accent)}.bad{color:var(--red)}.muted{color:var(--muted)}.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}.metric{background:#111923;border-radius:11px;padding:13px}.metric small{display:block;color:var(--muted);margin-bottom:5px}.metric strong{font-size:20px}.metric .good,.metric .bad{display:block}.check{text-align:center}.check input{width:auto;min-width:18px;height:18px;accent-color:var(--accent)}button{background:#26364a;border:1px solid #40536a;border-radius:9px;color:var(--ink);padding:9px 12px;font:inherit;cursor:pointer}button:hover{border-color:var(--accent)}button.remove{color:#ffb1b1;border-color:#714949;padding:7px 9px}.foot{font-size:13px}.status{color:var(--yellow);font-size:13px}.danger{color:#ffb1b1}.hidden{display:none}.item-picker{position:relative;min-width:230px}.item-toggle{width:100%;text-align:left;display:flex;justify-content:space-between;gap:12px}.item-menu{position:fixed;z-index:100;top:12px;left:12px;width:min(360px,calc(100vw - 24px));max-height:calc(100vh - 24px);padding:9px;background:#111923;border:1px solid #52677f;border-radius:10px;box-shadow:0 12px 30px #0009}.item-search{margin-bottom:7px}.item-options{max-height:255px;overflow:auto}.item-options button,.item-add{width:100%;display:block;text-align:left;margin:3px 0;padding:8px}.item-options button{background:transparent;border-color:transparent}.item-options button:hover,.item-add:hover{background:#26364a}.lot-note{min-width:220px;margin-top:5px;font-size:12px}.item-empty{color:var(--muted);padding:8px}.item-add{color:var(--accent)}@media(max-width:700px){body{padding:12px}.card{padding:12px}h1{font-size:25px}}@media print{body{background:white;color:#111;padding:10px}.card{background:white;border-color:#ccc}.hint,.foot{color:#444}.actions,button{display:none}input,select{background:white;color:#111}}
+.observation-form{display:grid;grid-template-columns:minmax(220px,1fr) minmax(130px,170px) minmax(180px,1fr) auto;gap:10px;align-items:start;margin:12px 0}.observation-form .item-picker{min-width:0}.observation-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.observation-toolbar input{max-width:420px}.observation-table{min-width:760px!important}.observation-empty{padding:12px;color:var(--muted)}@media(max-width:650px){.observation-form{grid-template-columns:1fr}.observation-form button{width:100%}}
+</style>
+<style>
+:root{color-scheme:dark;--bg:#171e1d;--panel:#222c2a;--ink:#e4ebe6;--muted:#a5b2aa;--accent:#83c5a3;--line:#394844;--yellow:#dfc47a;--red:#e58e88}
+body{padding:clamp(14px,3vw,38px);background:radial-gradient(ellipse at 8% 0%,#29433a 0,transparent 34%),linear-gradient(180deg,#1b2422,#171e1d 70%,#192320);color:var(--ink);font:15px/1.55 Inter,ui-sans-serif,system-ui,"Segoe UI",Arial,sans-serif}
+main{max-width:1540px}
+.hero{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:26px 30px;margin-bottom:20px;background:linear-gradient(115deg,#203a32,#285343 60%,#32644d);border-radius:22px;color:#edf4ef;box-shadow:0 16px 38px #090f0d44}
+.hero h1{font-size:clamp(28px,4vw,40px);letter-spacing:-.035em;line-height:1.12;color:#f1f5f2}.hero p{color:#c0d1c6;max-width:760px;margin:10px 0 0}.hero .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.16em;font-weight:750;color:#9cc7ad;margin:0 0 8px}.hero-badge{flex:none;border:1px solid #ffffff35;background:#ffffff0c;color:#d3e4d8;padding:9px 13px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.06em}
+h2{font-size:19px;letter-spacing:-.02em;color:#dce9e0}.card{background:#222c2aee;border:1px solid #394844;border-radius:17px;padding:20px;margin:17px 0;box-shadow:0 7px 22px #090e0d28}
+.tax{background:#26322e;align-items:center}.tax strong{color:#d5e7db}.hint,.foot,.muted{color:#a5b2aa}.foot{line-height:1.5}
+input,select{color:#e2ebe5;background:#192220;border:1px solid #465650;border-radius:10px;padding:9px 11px;transition:border-color .15s,box-shadow .15s,background .15s}input::placeholder{color:#899990}input:focus,select:focus{outline:0;border-color:#83c5a3;box-shadow:0 0 0 3px #83c5a322;background:#1b2622}
+button{background:#38684f;border:1px solid #49765e;border-radius:10px;color:#f0f5f1;padding:9px 14px;font-weight:650;transition:transform .12s,background .12s,box-shadow .12s}button:hover{background:#47785d;border-color:#619071;box-shadow:0 4px 12px #0b15102a}button:active{transform:translateY(1px)}button.remove{background:#302524;color:#e5aaa4;border-color:#60413d}button.remove:hover{background:#3b2927;border-color:#87534d;box-shadow:none}
+.summary{grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:12px}.metric{background:linear-gradient(150deg,#293531,#252f2c);border:1px solid #3c4a44;border-radius:14px;padding:16px}.metric small{color:#aab8af}.metric strong{font-size:22px;letter-spacing:-.025em;color:#e1ece4}.metric strong.good,.good{color:#8bd0a9}.metric strong.bad,.bad{color:#ed9a91}
+.tablewrap{border:1px solid #394844;border-radius:12px;background:#1e2725}table{border-collapse:separate;border-spacing:0}th{background:#2c3833;color:#b9c9bf;border-bottom:1px solid #43514a;padding:11px 9px;font-size:10px;letter-spacing:.08em}th:first-child{border-top-left-radius:11px}th:last-child{border-top-right-radius:11px}td{padding:9px;border-bottom:1px solid #303b36;color:#d6e0d9}tbody tr:last-child td{border-bottom:0}tbody tr:hover td{background:#26312d}.money{font-variant-numeric:tabular-nums}.item-toggle{background:#192220;color:#e2ebe5;border-color:#465650}.item-toggle:hover{background:#24312b;border-color:#83c5a3;box-shadow:none}.item-menu{background:#202a27;border:1px solid #52645a;box-shadow:0 18px 44px #090f0d77}.item-options button{color:#e2ebe5}.item-options button:hover,.item-add:hover{background:#2d3b34}.item-add{color:#9cdbb4}.observation-empty{color:#a5b2aa}
+#catalogStatus{display:inline-block;padding:7px 11px;margin:0 0 4px;background:#293a32;border:1px solid #40564a;border-radius:999px;color:#b9d7c3}
+@media(max-width:700px){body{padding:12px}.hero{padding:21px 18px;border-radius:17px;align-items:flex-start}.hero-badge{display:none}.card{padding:14px;border-radius:14px}.toolbar{align-items:flex-start}.toolbar .actions{margin-left:0;width:100%}.toolbar .actions button{flex:1}.summary{grid-template-columns:repeat(auto-fit,minmax(155px,1fr))}.metric{padding:12px}.metric strong{font-size:19px}}
+@media print{body{background:white;color:#111;padding:10px}.hero,.card,.metric{background:white;color:#111;box-shadow:none}.hero h1,.hero p{color:#111}.tablewrap{border-color:#ccc}.actions,button{display:none}}
+.observation-table{min-width:760px!important}
+.page-controls{display:flex;align-items:center;justify-content:center;gap:14px;margin:13px 0 2px}.page-controls button{min-width:110px}.page-controls button:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}.page-info{color:#b9c9bf;font-size:13px;min-width:92px;text-align:center}
+.dev-log{grid-area:logs}.dev-log>summary{cursor:pointer;color:#c9b98e}.dev-log-content{margin-top:10px}.dev-log-actions{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.dev-log-list{max-height:260px;overflow:auto;margin:0;padding-left:28px;font:12px/1.5 ui-monospace,Consolas,monospace}.dev-log-list li{padding:3px 0;color:#c7d0c8;overflow-wrap:anywhere}.dev-log-list li.error{color:#f09b91}.dev-log-list li.warn{color:#e4c27a}.dev-log-list li.info{color:#a9cbb5}
+.operation-filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:12px 0}.operation-filters input{max-width:360px}.operation-filters select{max-width:220px}
+.partial-fields{display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:7px;margin-top:8px;padding:9px;border:1px solid #43534b;border-radius:10px;background:#1d2723}.partial-fields input,.partial-fields select{min-width:0;font-size:12px}.partial-fields .partial-hint{grid-column:1/-1;margin:0;font-size:11px;color:#a5b2aa}
+</style>
+<style>
+/* Visual refresh: compact trading journal rather than generic dashboard cards. */
+main{display:grid;grid-template-columns:minmax(0,1fr) 330px;grid-template-areas:"hero hero" "catalog catalog" "operations summary" "operations tax" "observations observations";column-gap:38px;align-items:start}
+.hero{grid-area:hero}.catalog-status{grid-area:catalog}.summary-section{grid-area:summary}.tax{grid-area:tax}.operations-section{grid-area:operations}.observations-section{grid-area:observations}
+main{grid-template-areas:"hero hero" "catalog catalog" "summary tax" "tabs tabs" "operations operations"}
+.workspace-tabs{grid-area:tabs;display:flex;gap:4px;align-items:end;border-bottom:1px solid #4a5148;margin:8px 0 0}.workspace-tabs button{border:0;border-bottom:2px solid transparent;border-radius:0;background:transparent;color:#aaa99b;padding:11px 16px}.workspace-tabs button[aria-selected="true"]{border-bottom-color:#c99d5a;color:#e8d5ad;background:#252d28}.workspace-tabs button:hover{background:#252d28;box-shadow:none}.operations-section,.observations-section{grid-area:operations;grid-column:1/-1;width:100%}
+body{padding:0 0 48px;background:#171c19;color:#e6e3d8;font-family:Inter,"Segoe UI",system-ui,sans-serif}
+main{max-width:1600px;padding:0 34px}
+.hero{position:relative;overflow:hidden;margin:0 calc((min(100vw,1600px) - 100vw)/2) 30px;padding:30px max(34px,calc((100vw - 1532px)/2));min-height:205px;border-radius:0;background:#252d28;box-shadow:none;border-bottom:1px solid #39423b}
+.hero:after{content:"PALADIUM / MARKET JOURNAL";position:absolute;right:5%;bottom:-25px;font-size:clamp(34px,7vw,100px);font-weight:850;letter-spacing:-.08em;color:#ffffff07;white-space:nowrap;pointer-events:none}
+.hero .eyebrow{color:#c99d5a;letter-spacing:.22em}.hero h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(38px,6vw,68px);font-weight:500;letter-spacing:-.055em;max-width:760px}.hero p:not(.eyebrow){max-width:620px;color:#b7b9ad;font-size:14px}.hero-badge{align-self:flex-start;border-radius:3px;border-color:#5c665a;background:#202722;color:#d3c09a;letter-spacing:.12em}
+#catalogStatus{border-radius:3px;background:#222923;border-color:#424a40;color:#c7b88e}
+.card{border:0;border-top:1px solid #41483f;border-radius:0;background:transparent;box-shadow:none;padding:24px 0;margin:0}
+.card h2{font-family:Georgia,"Times New Roman",serif;font-size:28px;font-weight:500;letter-spacing:-.025em;color:#eee9dc}
+.summary{grid-template-columns:1fr;gap:0;border:1px solid #41483f;background:#202621}
+.metric{position:relative;min-height:95px;border-radius:0;background:transparent;border:0;border-bottom:1px solid #41483f;padding:14px 16px}.metric:last-child{border-bottom:0}.metric small{font-size:10px;line-height:1.35;letter-spacing:.045em;text-transform:uppercase;color:#aaa99b}.metric strong{display:block;margin-top:7px;font-family:Georgia,"Times New Roman",serif;font-size:26px;font-weight:500;letter-spacing:-.03em;color:#eee9dc}.metric strong.good,.good{color:#a7c49b}.metric strong.bad,.bad{color:#dc8f7c}
+.tax{margin:0;padding:16px;background:#252d28;border-left:3px solid #c99d5a;color:#e7dfc8}.tax input{width:76px}
+.toolbar{align-items:center}.toolbar .actions{gap:7px}.toolbar .actions button{font-size:12px}.toolbar .actions button:first-child{background:#b3884e;border-color:#b3884e;color:#191b17}.toolbar .actions button:first-child:hover{background:#c99d5a}
+button{border-radius:4px;background:#2d3730;border-color:#4b584e;color:#e8e5d9}button:hover{background:#39473c;border-color:#9eaa8f;box-shadow:none}button.remove{border-radius:4px}
+input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8e5d9}input:focus,select:focus{border-color:#c99d5a;box-shadow:0 0 0 2px #c99d5a25;background:#222a24}
+.tablewrap{border:1px solid #41483f;border-radius:4px;background:#1e2420}table{min-width:1500px}th{background:#2a322c;color:#c9b98e;border-bottom:1px solid #4a5148;letter-spacing:.1em}td{color:#deded3;border-bottom:1px solid #343d36}tbody tr:hover td{background:#252e28}.item-menu{border-radius:5px;background:#222a24;border-color:#5a6559}.item-toggle{background:#202722}.partial-fields{border-radius:4px;background:#242c26}.page-controls button{border-radius:4px}
+.operation-filters{padding:0 0 8px}.operation-filters input{max-width:460px}.operation-filters select{max-width:250px}
+.observation-form{margin:18px 0}.observation-table{min-width:800px!important}
+.operations-section table{min-width:900px}.item-cell{min-width:230px}.item-picker{min-width:190px}.status-cell{min-width:148px}.row-status-badge{display:inline-block;margin-top:6px;padding:3px 7px;border:1px solid #59644f;border-radius:999px;background:#2a342c;color:#c4c7aa;font-size:10px;line-height:1.3;white-space:normal}.row-status-badge.complete{background:#263a2d;border-color:#58775b;color:#a9d1a3;font-weight:700}.row-status-badge.partial,.row-status-badge.returned{background:#3b3325;border-color:#78613b;color:#e5c27b;font-weight:650}.row-status-badge.expired{background:#382b28;border-color:#725047;color:#e1a28e}.row-status-badge.active{background:#26343b;border-color:#526d7b;color:#9fc5d2}.row-details{margin-top:7px;color:#bdbdac;font-size:11px}.row-details summary,.backup-menu summary{cursor:pointer;color:#c8b98f;user-select:none}.row-details summary:hover,.backup-menu summary:hover{color:#e7c783}.row-detail-grid{display:grid;grid-template-columns:repeat(3,minmax(110px,1fr));gap:8px;padding:10px 0 2px}.detail-field{display:flex;flex-direction:column;gap:4px;color:#aaa99b;font-size:10px;letter-spacing:.04em;text-transform:uppercase}.detail-field input{font-size:13px}.break-even-wrap strong{font-size:14px;color:#e2dfd2;letter-spacing:0}.detail-include{display:flex;align-items:center;gap:7px;grid-column:1/-1;color:#bdbdac;font-size:11px}.detail-include input{width:17px;height:17px;accent-color:#c99d5a}.partial-hint{font-size:10px!important;line-height:1.4}.commit-partial{grid-column:1/-1;width:100%;background:#9a7541;border-color:#b18b53;color:#171913}.commit-partial:hover{background:#b18b53}.listing-history{margin-top:10px;padding-top:8px;border-top:1px solid #41483f;color:#bcb9a9}.listing-history strong{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#c9b98e}.listing-history p{margin:5px 0;font-size:11px}.backup-menu{position:relative}.backup-menu>summary{list-style:none;border:1px solid #4b584e;border-radius:4px;padding:8px 11px;background:#2d3730;font-size:12px}.backup-menu>summary::-webkit-details-marker{display:none}.backup-menu[open]>div{position:absolute;z-index:30;right:0;top:calc(100% + 6px);width:205px;padding:7px;background:#242c26;border:1px solid #505b50;box-shadow:0 12px 25px #0008;display:grid;gap:6px}.backup-menu>div button{width:100%;text-align:left;font-size:12px}
+@media(max-width:1100px){main{grid-template-columns:minmax(0,1fr) 280px;column-gap:24px}table{min-width:1420px}}
+@media(max-width:820px){main{display:flex;flex-direction:column;align-items:stretch}.hero,.catalog-status,.summary-section,.tax,.operations-section,.observations-section{width:100%}.summary{grid-template-columns:repeat(2,minmax(0,1fr))}.metric{border-right:1px solid #41483f;border-bottom:1px solid #41483f}.metric:nth-child(2n){border-right:0}.metric:last-child{grid-column:1/-1;border-bottom:0}.tax{margin-top:4px}}
+@media(max-width:700px){main{padding:0 16px}.hero{margin-bottom:20px;padding:25px 16px;min-height:180px}.hero h1{font-size:42px}.hero-badge{display:none}.card{padding:20px 0}.card h2{font-size:25px}.toolbar{gap:12px}.toolbar .actions{width:100%}.toolbar .actions button{flex:1}.summary{grid-template-columns:1fr 1fr}.metric{min-height:110px;padding:13px 11px}.metric strong{font-size:20px}.tax{align-items:center}.operations-section table{min-width:760px}.row-detail-grid{grid-template-columns:repeat(2,minmax(100px,1fr))}}
+</style>
+</head>
+<body><main>
+<header class="hero"><div><p class="eyebrow">Paladium · Market tracker</p><h1>Suivi des achats et reventes</h1><p>Choisis un item dans le catalogue avec la recherche, puis ajoute le détail du lot ou de son enchantement si nécessaire. Le catalogue réunit les items Paladium connus, les objets officiels de Minecraft Bedrock et tes ajouts personnalisés.</p></div><span class="hero-badge">SUIVI DU MARCHÉ</span></header>
+<p id="catalogStatus" class="foot muted catalog-status" aria-live="polite">Items Paladium Bedrock ajoutés ; chargement du catalogue Minecraft Bedrock…</p>
+
+<section class="card summary-section"><h2>Vue d’ensemble</h2><div class="summary">
+  <div class="metric"><small>Gain prévu sur le stock et les annonces</small><strong id="expectedTotal">—</strong><small id="expectedPercent" class="muted">—</small></div>
+  <div class="metric"><small>Gain ou perte réalisé</small><strong id="realizedTotal">—</strong><small id="realizedPercent" class="muted">—</small></div>
+  <div class="metric"><small>Capital total engagé (tous achats au bilan)</small><strong id="capitalTotal">—</strong></div>
+  <div class="metric"><small>Capital encore immobilisé en stock</small><strong id="stockCapitalTotal">—</strong></div>
+  <div class="metric"><small>Taxes déjà payées sur les annonces en cours</small><strong id="pendingTaxTotal">—</strong></div>
+</div></section>
+
+<section class="card tax"><strong>Taxe de vente par défaut :</strong><input id="defaultTax" type="number" min="0" max="100" step="0.1"><span>%</span><span class="hint">Aucune taxe à l’achat. Un montant de taxe saisi sur une ligne remplace l’estimation au pourcentage.</span></section>
+
+<nav class="workspace-tabs" role="tablist" aria-label="Sections du suivi"><button id="operationsTab" type="button" role="tab" aria-controls="operationsPanel" aria-selected="true">Opérations</button><button id="observationsTab" type="button" role="tab" aria-controls="observationsPanel" aria-selected="false">Items observés</button></nav>
+
+<section class="card operations-section" id="operationsPanel" role="tabpanel" aria-labelledby="operationsTab">
+  <div class="toolbar"><h2>Opérations et stocks</h2><div class="actions"><button id="add">＋ Ajouter un achat</button><details class="backup-menu"><summary>Sauvegarde</summary><div><button id="export" type="button">Exporter une sauvegarde</button><button id="importButton" type="button">Importer une sauvegarde</button></div></details><input id="importFile" class="hidden" type="file" accept="application/json"></div></div>
+  <div class="operation-filters"><input id="operationSearch" type="search" placeholder="Rechercher un item ou une note…" aria-label="Rechercher dans les opérations"><select id="operationStateFilter" aria-label="Filtrer par état"><option value="">Tous les états</option><option>En stock</option><option>En vente</option><option>Ventes partielles</option><option>Vendu</option><option>Invendu expiré</option></select></div>
+  <div class="tablewrap"><table><thead><tr><th>Item / lot</th><th>Qté</th><th>Achat / unité</th><th>Prix de vente / unité</th><th>État</th><th>Gain prévu</th><th>Gain réalisé</th><th>Action</th></tr></thead><tbody id="rows"></tbody></table></div>
+  <div class="page-controls"><button id="previousPage" type="button">← Précédent</button><span id="pageInfo" class="page-info">Page 1 sur 1</span><button id="nextPage" type="button">Suivant →</button></div>
+  <p class="foot">Chaque mise en vente garde sa quantité, son prix et sa taxe. Pour enregistrer une vente partielle, saisis seulement la quantité vendue : elle est comptabilisée au prix déjà défini pour l’annonce, puis le reliquat retourne au stock avec sa part de taxe déjà payée. Le reliquat pourra être remis en vente séparément avec un nouveau prix. « Invendu expiré » clôture une annonce sans vente et comptabilise les frais de taxe correspondants. Décoche « Au bilan » pour exclure un achat d’expérience.</p>
+</section>
+
+<section class="card observations-section" id="observationsPanel" role="tabpanel" aria-labelledby="observationsTab" hidden>
+  <div class="toolbar observation-toolbar"><h2>Prix observés</h2><input id="observationSearch" type="search" placeholder="Rechercher dans les observations…" aria-label="Rechercher dans les observations"></div>
+  <p class="foot">Ce registre réunit les estimations discutées et les prix relevés par le joueur ; leur origine et leur fiabilité sont indiquées. Tout reste séparé des achats, des ventes et du bilan.</p>
+  <div class="observation-form"><div id="observationItem"></div><input id="observationPrice" type="number" min="0" step="any" placeholder="Prix observé ($)" aria-label="Prix observé"><input id="observationNote" type="text" placeholder="Note du joueur (facultatif)" aria-label="Note du joueur"><button id="addObservation" type="button">＋ Ajouter l’item</button></div>
+  <div class="tablewrap"><table class="observation-table"><thead><tr><th>Item</th><th>Prix / unité</th><th>Origine, fiabilité et note</th><th>Date</th><th>Action</th></tr></thead><tbody id="observationRows"></tbody></table></div>
+  <div id="observationEmpty" class="observation-empty hidden"></div>
+</section>
+
+<details class="card dev-log" id="devLogPanel">
+  <summary>Diagnostic développeur <span id="devLogCount">(0)</span></summary>
+  <div class="dev-log-content"><p class="foot">Les erreurs JavaScript et les sauvegardes échouées apparaissent ici. Le journal reste limité aux 100 derniers messages et est conservé uniquement dans cette session.</p><div class="dev-log-actions"><button id="copyDevLog" type="button">Copier le journal</button><button id="clearDevLog" type="button">Effacer</button></div><ol id="devLogList" class="dev-log-list" aria-live="polite"></ol></div>
+</details>
+
+</main>
+<script>
+(() => {
+  'use strict';
+  const DEV_LOG_KEY='palladium-dev-log-v1',DEV_LOG_LIMIT=100;
+  let devLogs=[];
+  function renderDevLogs(){
+    const list=document.getElementById('devLogList'),count=document.getElementById('devLogCount');
+    if(!list||!count)return;
+    list.replaceChildren();devLogs.slice(-DEV_LOG_LIMIT).forEach(entry=>{const li=document.createElement('li');li.className=entry.level;li.textContent=`${entry.time} [${entry.level.toUpperCase()}] ${entry.message}`;list.append(li)});count.textContent=`(${devLogs.length})`;
+  }
+  function logDev(level,message){
+    try{const stamp=new Date().toLocaleString('fr-FR');devLogs.push({level,time:stamp,message:String(message||'Erreur inconnue')});devLogs=devLogs.slice(-DEV_LOG_LIMIT);sessionStorage.setItem(DEV_LOG_KEY,JSON.stringify(devLogs));renderDevLogs()}catch{}
+  }
+  try{const stored=JSON.parse(sessionStorage.getItem(DEV_LOG_KEY)||'[]');if(Array.isArray(stored))devLogs=stored.slice(-DEV_LOG_LIMIT)}catch{}
+  window.addEventListener('error',event=>logDev('error',`${event.message||'Erreur JavaScript'}${event.filename?` · ${event.filename.split('/').pop().split('\\').pop()}:${event.lineno||0}`:''}`));
+  window.addEventListener('unhandledrejection',event=>logDev('error',`Promesse rejetée : ${event.reason?.stack||event.reason||'raison inconnue'}`));
+  window.addEventListener('DOMContentLoaded',renderDevLogs,{once:true});
+  const STORAGE_KEY = 'palladium-resale-tracker-vierge-v1';
+  const LEGACY_KEY = 'palladium-resale-tracker-vierge-v0';
+  const BEDROCK_CACHE_KEY = 'minecraft-bedrock-items-v1';
+  const BEDROCK_ITEMS_URL = 'https://raw.githubusercontent.com/MicrosoftDocs/minecraft-creator/main/creator/Reference/Content/VanillaListingsReference/Items.md';
+  const fairValues = [];
+  const catalogue = [
+    'Amethyst Block (non-géode)','Amethyst Ingot','Amethyst Block de géode','Amethyst Compressed','Harpagophytum','Beef','Bloc d’améthyste de géode','Bloc d’améthyste (non-géode)','Bloc de palladium','Bloc de palladium vert','Bloc de titane','Bottes en améthyste','Bottes en endium','Bottes en paladium','Bottes en paladium vert','Bottes en titane','Bottes de voyage','Bottes en palladium','Casque en améthyste','Casque en endium','Casque en paladium','Casque en paladium vert','Casque en titane','Chestplate Travel','Double XP Potion','Dynamite','Dynamite Big','Dynamite Endium','Endium Ingot','Endium Nugget','Excavatrice en paladium','Excavatrice en titane','Findium','Fragment d’Endium','Glowstone','Green Palladium Ingot','Green Palladium Sword','Hammer','Hache en améthyste','Hache en endium','Hache en paladium','Hache en paladium vert','Hache en titane','Heal Stick','Hood Helmet','Houe en améthyste','Houe en endium','Houe en paladium','Houe en paladium vert','Houe en titane','Jambières en améthyste','Jambières en endium','Jambières en paladium','Jambières en paladium vert','Jambières en titane','Jambières de voyage','Legend Array Stone of Job','Legend Array Stone of Teleportation','Lingot d’améthyste','Lingot de palladium','Lingot de palladium vert','Lingot de titane','Lingot d’endium','Magnet','Medium Ring','Obsidian Boom','Obsidienne empoisonnée','Palladium Apple','Palladium brut','Palladium Ore','Paladium Compressed','Paladium Green','Paladium Ingot','Pala Machine','Pelle en améthyste','Pelle en endium','Pelle en paladium','Pelle en paladium vert','Pelle en titane','Pioche en améthyste','Pioche en endium','Pioche en paladium','Pioche en paladium vert','Pioche en titane','Pioche of the God','Pierre légendaire des métiers','Pierre légendaire de téléportation','Plastron en améthyste','Plastron en endium','Plastron en paladium','Plastron en paladium vert','Plastron en titane','Plastron de saut','Potion double XP','Raw Palladium','Raw Titanium','Small Ring','Spike Améthyste','Spike Diamond','Spike Gold','Spike Iron','Spike Paladium','Spike Titanium','Spike Wood','Speed Stick','Stick of God','Strength Stick','Épée en améthyste','Épée en endium','Épée en paladium','Épée en paladium vert','Épée en titane','Titane brut','Totem de fertilité','Unclaimed Finder Bleu','Unclaimed Finder Orange','Unclaimed Finder Rouge','Unclaimed Finder Vert','XP Berry','Wooden Hammer','Outil de construction en améthyste','Outil de construction en endium','Outil de construction en paladium','Outil de construction en titane'
+  ];
+  const paladiumBedrockItems = [
+    'Minerai d’améthyste','Amethyst Ore','Éclat d’améthyste','Amethyst Shard','Amethyst Block','Amethyst Block de géode','Améthyste compressée','Amethyst Compressed','Amethyst Seed','Chervil Seed','Chervil','Kiwanos','Eggplant','Orangblossom','Fruit d’améthyste','Fruit de titane','Fruit de paladium','Fruit d’endium',
+    'Minerai de titane','Titanium Ore','Lingot de titane','Titanium Ingot','Bloc de titane','Titanium Block','Titane compressé','Titanium Compressed','Graine de chervil',
+    'Minerai de paladium','Paladium Ore','Lingot de paladium','Paladium Ingot','Bloc de paladium','Paladium Block','Paladium compressé','Paladium Compressed','Particule de paladium','Paladium Particle','Cœur en paladium','Paladium Core','Graine de paladium',
+    'Minerai de paladium vert','Green Paladium Ore','Lingot de paladium vert','Green Palladium Ingot','Bloc de paladium vert','Green Paladium Block','Paladium vert compressé','Green Paladium Compressed','Graine de paladium vert',
+    'Minerai de findium','Findium Ore','Lingot de findium','Findium Ingot','Bloc de findium','Findium Block','Findium compressé','Findium Compressed',
+    'Fragment d’endium','Endium Fragment','Pépite d’endium','Endium Nugget','Lingot d’endium','Endium Ingot','Bloc d’endium','Endium Block','Endium compressé','Endium Compressed',
+    'Épée en améthyste','Amethyst Sword','Épée en titane','Titanium Sword','Épée en paladium','Paladium Sword','Épée en paladium vert','Green Paladium Sword','Épée en endium','Endium Sword',
+    'Casque en améthyste','Amethyst Helmet','Plastron en améthyste','Amethyst Chestplate','Jambières en améthyste','Amethyst Leggings','Bottes en améthyste','Amethyst Boots',
+    'Casque en titane','Titanium Helmet','Plastron en titane','Titanium Chestplate','Jambières en titane','Titanium Leggings','Bottes en titane','Titanium Boots',
+    'Casque en paladium','Paladium Helmet','Plastron en paladium','Paladium Chestplate','Jambières en paladium','Paladium Leggings','Bottes en paladium','Paladium Boots',
+    'Casque en paladium vert','Green Paladium Helmet','Plastron en paladium vert','Green Paladium Chestplate','Jambières en paladium vert','Green Paladium Leggings','Bottes en paladium vert','Green Paladium Boots',
+    'Casque en endium','Endium Helmet','Plastron en endium','Endium Chestplate','Jambières en endium','Endium Leggings','Bottes en endium','Endium Boots','Casque prototype','Plastron prototype','Jambières prototype','Bottes prototype','Plastron de saut','Jump Chestplate','Jambières de voyage','Travel Leggings','Bottes de voyage','Travel Boots',
+    'Pioche en améthyste','Pelle en améthyste','Hache en améthyste','Houe en améthyste','Pioche en titane','Pelle en titane','Hache en titane','Houe en titane','Pioche en paladium','Pelle en paladium','Hache en paladium','Houe en paladium','Pioche en paladium vert','Pelle en paladium vert','Hache en paladium vert','Houe en paladium vert','Pioche en endium','Pelle en endium','Hache en endium','Houe en endium','Pioche of the God','Pickaxe of God','Hammer en améthyste','Hammer en titane','Hammer en paladium','Hammer en endium','Excavatrice en améthyste','Excavatrice en endium',
+    'Unclaim Finder Vert','Unclaim Finder Orange','Unclaim Finder Rouge','Unclaim Finder Bleu','Small Ring en paladium','Medium Ring en paladium','Big Ring en paladium','Small Ring en endium','Medium Ring en endium','Big Ring en endium','Ring Paladium (Small)','Ring Paladium (Medium)','Ring Paladium (Big)','Ring Endium (Small)','Ring Endium (Medium)','Ring Endium (Big)',
+    'Heal Stick','Speed Stick','Strength Stick','Jump Stick','Stick of God','Damage Stick','Hyper Jump Stick','Stick en améthyste','Stick en titane','Stick en paladium','Stick en endium','Orbe de régénération','Heal Orb','Orbe de vitesse','Speed Orb','Orbe de force','Strength Orb','Orbe de saut','Jump Orb','Slimepad','Pommadium','Palapple','Aile','Wing','Hang Glider',
+    'Pierre légendaire aléatoire','Random Legendary Stone','Pierre légendaire de téléportation','Legendary Stone of Teleportation','Pierre légendaire d’invisibilité','Legendary Stone of Invisibility','Pierre légendaire de fortune','Legendary Stone of Fortune','Pierre légendaire de pouvoir','Legendary Stone of Power','Pierre légendaire de métier','Legend Array Stone of Job','Pierre légendaire de chaos','Legendary Stone of Chaos',
+    'Palamachine','Grinder','Bloc du Grinder','Bordure de Grinder','Morceau de Grinder','Table de Grinder','Robinier de Grinder','Cobblebreaker','Crusher','Totem de fertilité','Totem of Fertility','Palaforge',
+    'Coffre en bois moddé','Coffre en améthyste','Coffre en titane','Coffre en paladium','Coffre en paladium vert','Coffre en endium','Drawer','Amélioration de drawer','Amélioration stockage Fer','Amélioration stockage Or','Amélioration stockage Diamant','Amélioration stockage Améthyste','Amélioration stockage Titane','Amélioration stockage Paladium','Amélioration stockage Paladium Vert',
+    'Spike Améthyste','Spike Diamond','Spike Gold','Spike Iron','Spike Paladium','Spike Titanium','Spike Wood','Dynamite en endium','Dynamite en paladium','Compressed Amethyst','Compressed Titanium','Compressed Paladium','Compressed Green Paladium','Compressed Endium','Expérience Mineur 1000xp','Expérience Farmeur 1000xp','Expérience Chasseur 1000xp','Expérience Alchimiste 1000xp','Bottle Miner 1000xp','Bottle Farmer 1000xp','Bottle Hunter 1000xp','Bottle Alchimiste 1000xp'
+  ];
+  let customItems=[];
+  let observations=[];
+  let observationPicker;
+  let estimatesImported=false;
+  let editingObservationId=null;
+  const OPERATIONS_PER_PAGE=5;
+  let operationPage=0;
+  let bedrockItems=[];
+  let bedrockIds=new Map();
+  const seed = {
+    version: 4,
+    defaultTax: 3.5,
+    rows: []
+  };
+  const $ = s => document.querySelector(s);
+  const money = n => Number.isFinite(n) ? new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0}).format(Math.round(n))+' $' : '—';
+  const percent = n => Number.isFinite(n) ? new Intl.NumberFormat('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1}).format(n)+' %' : '—';
+  const numeric = el => el.value === '' ? null : Number(el.value);
+  function field(cls, value, type='number', label='') {
+    const input=document.createElement('input'); input.className=cls; input.type=type;
+    if(type==='number'){input.min='0';input.step='any'}
+    input.value=value ?? ''; if(label) input.setAttribute('aria-label',label); return input;
+  }
+  const normalized = s => String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLocaleLowerCase('fr');
+  function allItems(){
+    const unique=new Map();
+    [...catalogue,...paladiumBedrockItems,...bedrockItems,...customItems].forEach(item=>{const key=normalized(item);if(!unique.has(key))unique.set(key,item)});
+    return [...unique.values()].sort((a,b)=>a.localeCompare(b,'fr'))
+  }
+  function itemIdFromMarkdown(line){
+    const cells=line.trim().replace(/^\|/,'').replace(/\|$/,'').split('|');
+    if(cells.length<2)return '';
+    const raw=cells[0].trim();
+    const linked=raw.match(/^\[([^\]]+)\]\([^)]+\)$/);
+    const id=(linked?linked[1]:raw).replace(/[`*_]/g,'').trim();
+    return /^[a-z0-9_]+$/i.test(id)&&/^-?\d+$/.test(cells[1].trim())?id.toLowerCase():'';
+  }
+  function setBedrockItems(ids){
+    bedrockIds=new Map();
+    bedrockItems=[...new Set(ids)].map(id=>{
+      const label=id.split('_').filter(Boolean).map(part=>part.charAt(0).toUpperCase()+part.slice(1)).join(' ');
+      bedrockIds.set(label,id);return label;
+    });
+  }
+  async function loadBedrockItems(){
+    const status=$('#catalogStatus');
+    try{
+      const cached=JSON.parse(localStorage.getItem(BEDROCK_CACHE_KEY)||'[]');
+      if(Array.isArray(cached)&&cached.length>0){setBedrockItems(cached);status.textContent=`Catalogue Paladium Bedrock et Minecraft Bedrock chargés (${paladiumBedrockItems.length} entrées Paladium, ${bedrockItems.length} objets vanilla en cache).`;}
+    }catch{}
+    try{
+      const response=await fetch(BEDROCK_ITEMS_URL,{cache:'no-cache'});
+      if(!response.ok)throw new Error('Catalogue indisponible');
+      const markdown=await response.text();
+      const ids=[...new Set(markdown.split(/\r?\n/).map(itemIdFromMarkdown).filter(Boolean))];
+      if(ids.length<500)throw new Error('Liste reçue incomplète');
+      setBedrockItems(ids);
+      try{localStorage.setItem(BEDROCK_CACHE_KEY,JSON.stringify(ids))}catch{}
+      status.textContent=`Catalogue chargé : ${paladiumBedrockItems.length} entrées Paladium Bedrock, ${bedrockItems.length} objets Minecraft Bedrock, plus tes ajouts personnalisés.`;
+    }catch{
+      status.textContent=bedrockItems.length
+        ?`Hors ligne : catalogue Bedrock local conservé (${bedrockItems.length} objets).`
+        :`Catalogue Paladium Bedrock disponible (${paladiumBedrockItems.length} entrées). Le catalogue Minecraft Bedrock complet nécessite une connexion ; tes ajouts restent utilisables.`;
+    }
+  }
+  function makePicker(value=''){
+    const wrap=document.createElement('div');wrap.className='item-picker';wrap.dataset.value=value||'';
+    const toggle=document.createElement('button');toggle.type='button';toggle.className='item-toggle';
+    const label=document.createElement('span');label.textContent=value||'Choisir un item…';const caret=document.createElement('span');caret.textContent='⌄';toggle.append(label,caret);
+    const menu=document.createElement('div');menu.className='item-menu hidden';
+    const search=document.createElement('input');search.type='search';search.className='item-search';search.placeholder='Rechercher un item…';search.setAttribute('aria-label','Rechercher un item');
+    const options=document.createElement('div');options.className='item-options';
+    menu.append(search,options);wrap.append(toggle,menu);
+    function selectItem(name){wrap.dataset.value=name;label.textContent=name;menu.classList.add('hidden');search.value='';render('');saveAndCalc()}
+    function render(query){
+      options.replaceChildren();const q=normalized(query);const found=allItems().filter(item=>!q||normalized(item).includes(q)||normalized(bedrockIds.get(item)||'').includes(q));
+      if(!found.length){const empty=document.createElement('div');empty.className='item-empty';empty.textContent='Aucun item correspondant.';options.append(empty)}
+      found.forEach(item=>{const b=document.createElement('button');b.type='button';b.textContent=item;b.addEventListener('click',()=>selectItem(item));options.append(b)});
+      if(q&&!allItems().some(item=>normalized(item)===q)){
+        const add=document.createElement('button');add.type='button';add.className='item-add';add.textContent=`＋ Ajouter « ${query.trim()} » au catalogue`;
+        add.addEventListener('click',()=>{const name=query.trim();if(!name)return;if(!allItems().some(item=>normalized(item)===normalized(name)))customItems.push(name);selectItem(name)});options.append(add)
+      }
+    }
+    toggle.addEventListener('click',()=>{const willOpen=menu.classList.contains('hidden');document.querySelectorAll('.item-menu').forEach(m=>m.classList.add('hidden'));menu.classList.toggle('hidden',!willOpen);if(willOpen){const box=toggle.getBoundingClientRect(),width=Math.min(360,window.innerWidth-24),top=Math.max(12,Math.min(box.bottom+5,window.innerHeight-320));menu.style.width=width+'px';menu.style.left=Math.max(12,Math.min(box.left,window.innerWidth-width-12))+'px';menu.style.top=top+'px';render('');search.focus()}});
+    search.addEventListener('input',()=>render(search.value));
+    search.addEventListener('keydown',e=>{if(e.key==='Escape'){menu.classList.add('hidden');toggle.focus()}else if(e.key==='Enter'){const first=options.querySelector('button');if(first){e.preventDefault();first.click()}}});
+    return wrap;
+  }
+  function renderObservations(){
+    const body=$('#observationRows'),query=normalized($('#observationSearch').value);
+    body.replaceChildren();
+    const filtered=observations.filter(entry=>{
+      if(!query)return true;
+      const searchable=normalized(`${entry.item||''} ${entry.priceLabel||entry.price||''} ${entry.kind||''} ${entry.confidence||''} ${entry.note||''} ${entry.observedAt||''} ${entry.dateLabel||''}`);
+      const compactSearchable=searchable.replace(/[\s\u00a0\u202f$]/g,'');
+      const compactQuery=query.replace(/[\s\u00a0\u202f$]/g,'');
+      return searchable.includes(query)||compactSearchable.includes(compactQuery);
+    }).sort((a,b)=>String(a.item||'').localeCompare(String(b.item||''),'fr',{sensitivity:'base'}));
+    filtered.forEach(entry=>{
+      const tr=document.createElement('tr');
+      const isEditing=editingObservationId===entry.id;
+      const item=document.createElement('td');
+      const price=document.createElement('td');price.className='money';
+      const detail=document.createElement('td');
+      const date=document.createElement('td');date.className='muted';date.textContent=entry.dateLabel||(entry.observedAt?new Date(entry.observedAt).toLocaleString('fr-FR'):'—');
+      const action=document.createElement('td');
+      if(isEditing){
+        const itemPicker=makePicker(entry.item);item.append(itemPicker);
+        const priceInput=field('observation-edit-price',entry.price,'number','Prix observé');priceInput.min='0';priceInput.step='any';price.append(priceInput);
+        const source=document.createElement('div');source.className='muted foot';source.textContent=[entry.kind||'Observation joueur',entry.confidence?`Fiabilité : ${entry.confidence}`:''].filter(Boolean).join(' · ');
+        const noteInput=field('observation-edit-note',entry.note||'','text','Note du joueur');noteInput.placeholder='Ajouter ou modifier une note…';detail.append(source,noteInput);
+        const save=document.createElement('button');save.type='button';save.textContent='Enregistrer';
+        save.addEventListener('click',()=>{
+          const rawPrice=priceInput.value,value=Number(rawPrice),itemName=itemPicker.dataset.value||'';
+          if(!itemName||rawPrice===''||!Number.isFinite(value)||value<0){priceInput.focus();return}
+          entry.item=itemName;if(value!==Number(entry.price))delete entry.priceLabel;entry.price=value;entry.note=noteInput.value.trim();
+          editingObservationId=null;renderObservations();saveAndCalc();
+        });
+        const cancel=document.createElement('button');cancel.type='button';cancel.className='remove';cancel.textContent='Annuler';cancel.addEventListener('click',()=>{editingObservationId=null;renderObservations()});
+        action.append(save,cancel);
+      }else{
+        item.textContent=entry.item;
+        price.textContent=entry.priceLabel||money(Number(entry.price));
+        detail.textContent=[entry.kind||'Observation joueur',entry.confidence?`Fiabilité : ${entry.confidence}`:'',entry.note||''].filter(Boolean).join(' · ');
+        const edit=document.createElement('button');edit.type='button';edit.textContent='Modifier';edit.addEventListener('click',()=>{editingObservationId=entry.id;renderObservations()});
+        const remove=document.createElement('button');remove.type='button';remove.className='remove';remove.textContent='Retirer';remove.setAttribute('aria-label',`Retirer l’observation ${entry.item}`);
+        remove.addEventListener('click',()=>{observations=observations.filter(item=>item.id!==entry.id);renderObservations();saveAndCalc()});
+        action.append(edit,remove);
+      }
+      tr.append(item,price,detail,date,action);body.append(tr);
+    });
+    const empty=$('#observationEmpty');
+    empty.textContent=observations.length?(filtered.length?'':'Aucune observation ne correspond à cette recherche.'):'Aucun prix observé pour le moment.';
+    empty.classList.toggle('hidden',filtered.length>0);
+  }
+  function importFairValuesAsObservations(){
+    if(estimatesImported)return;
+    const existing=new Set(observations.map(entry=>entry.id));
+    fairValues.filter(entry=>!entry.value.startsWith('À ')&&!entry.value.startsWith('Pas de ')).forEach(entry=>{
+      const id=`estimate:${normalized(entry.item)}`;
+      if(existing.has(id))return;
+      const numericMatch=String(entry.value).match(/\d[\d ]*/),numericValue=numericMatch?Number(numericMatch[0].replace(/\s/g,''))||null:null;
+      observations.push({id,item:entry.item,price:numericValue,priceLabel:entry.value,kind:entry.item==='Lingot de palladium vert'?'Observation historique joueur':'Fair value estimée',confidence:entry.confidence,note:entry.note,dateLabel:'Repère historique'});
+      if(!allItems().some(item=>normalized(item)===normalized(entry.item)))customItems.push(entry.item);
+    });
+    estimatesImported=true;
+  }
+  function addObservation(){
+    const item=observationPicker?.dataset.value||'',rawPrice=$('#observationPrice').value,price=Number(rawPrice);
+    if(!item||rawPrice===''||!Number.isFinite(price)||price<0){$('#observationPrice').focus();return}
+    observations.unshift({id:`${Date.now()}-${Math.random().toString(36).slice(2,8)}`,item,price,note:$('#observationNote').value.trim(),kind:'Observation joueur',observedAt:new Date().toISOString()});
+    $('#observationPrice').value='';$('#observationNote').value='';renderObservations();saveAndCalc();
+  }
+  function migratePartialRow(row,defaultTax=3.5){
+    if(row.state!=='Ventes partielles'||(row.listingHistory||[]).length)return row;
+    const listedQty=Number(row.listedQty??row.q)||0,soldQty=Math.max(0,Math.min(listedQty,Number(row.soldQty)||0));
+    const hasPaid=row.taxPaid!==undefined&&row.taxPaid!==null&&row.taxPaid!=='';
+    const fee=hasPaid?Number(row.taxPaid):listedQty*(Number(row.sell)||0)*((Number(row.taxRate)||Number(defaultTax)||0)/100);
+    const carry=Number(row.listingCarry)||0,basis=fee+carry,remaining=Math.max(0,listedQty-soldQty),carryOut=listedQty?basis*remaining/listedQty:0,salePrice=Number(row.soldPrice)||Number(row.sell)||0;
+    return {...row,state:'En stock',listedQty:0,soldQty:0,soldPrice:null,sell:null,taxPaid:null,taxEstimated:false,listingCarry:0,stockTaxCarry:carryOut,listingHistory:[{listedQty,soldQty,soldPrice:salePrice,taxPaid:fee,taxCarry:carry,taxBasis:basis,carryOut,taxEstimated:!hasPaid,expired:false,returned:true,closedAt:null,sales:soldQty?[{qty:soldQty,price:salePrice}]:[]}]};
+  }
+  function makeRow(d={}) {
+    const tr=document.createElement('tr');
+    let item=d.item??d.name??'';let lot=d.lot??'';
+    if(!allItems().some(i=>normalized(i)===normalized(item))&&item){customItems.push(item)}
+    const picker=makePicker(item);const lotInput=field('lot-note',lot,'text','Détail du lot ou enchantement');lotInput.placeholder='Lot / enchantement (facultatif)';
+    const itemCell=document.createElement('td');itemCell.className='item-cell';itemCell.append(picker,lotInput);
+    const partial=document.createElement('div');partial.className='partial-fields';partial.hidden=true;
+    const soldQty=field('num sold-qty',d.soldQty,'number','Quantité vendue');soldQty.min='0';soldQty.placeholder='Qté vendue';
+    const commitPartial=document.createElement('button');commitPartial.type='button';commitPartial.className='commit-partial';commitPartial.textContent='Enregistrer la vente partielle';
+    const partialHint=document.createElement('p');partialHint.className='partial-hint';partialHint.textContent='Reste automatique : —';
+    partial.append(soldQty,commitPartial,partialHint);itemCell.append(partial);
+    const state=document.createElement('select');state.className='operation-state';
+    ['En stock','En vente','Ventes partielles','Vendu','Invendu expiré'].forEach(label=>{const o=document.createElement('option');o.value=label;o.textContent=label;state.append(o)});
+    state.value=d.state || 'En stock';
+    partial.hidden=state.value!=='Ventes partielles';
+    const include=document.createElement('input');include.type='checkbox';include.checked=d.include!==false;include.setAttribute('aria-label','Inclure cette ligne au bilan');
+    const listedQty=field('num listed-qty',d.listedQty!==undefined?d.listedQty:d.q,'number','Quantité mise en vente');listedQty.min='0';listedQty.placeholder='Qté listée';
+    const cells=[field('num q',d.q,'number','Quantité achetée'),field('num buy',d.buy,'number','Prix d’achat par unité'),field('num sell',d.sell,'number','Prix de vente par unité'),state,field('num rate',d.taxRate,'number','Taxe en pourcentage'),field('num paid',d.taxPaid,'number','Taxe réellement payée')];
+    cells[5].dataset.manual=d.taxPaid!==undefined&&d.taxPaid!==null&&d.taxPaid!==''?'true':'false';
+    cells[5].dataset.estimated=d.taxEstimated===true||((state.value==='En vente'||state.value==='Ventes partielles')&&(d.taxPaid===undefined||d.taxPaid===null||d.taxPaid===''))?'true':'false';
+    cells[5].placeholder='Automatique';
+    const detailPanel=document.createElement('details');detailPanel.className='row-details';
+    const detailSummary=document.createElement('summary');detailSummary.textContent='Quantité listée, taxe et options';detailPanel.append(detailSummary);
+    const detailGrid=document.createElement('div');detailGrid.className='row-detail-grid';
+    [['Qté de cette annonce',listedQty],['Taxe %',cells[4]],['Taxe déjà payée',cells[5]]].forEach(([label,control])=>{const wrap=document.createElement('label');wrap.className='detail-field';wrap.textContent=label;wrap.append(control);detailGrid.append(wrap)});
+    const breakEven=document.createElement('span');breakEven.className='detail-field break-even-wrap';breakEven.innerHTML='Seuil d’équilibre / unité';
+    const beValue=document.createElement('strong');beValue.className='money breakEven';beValue.textContent='—';breakEven.append(beValue);detailGrid.append(breakEven);
+    const includeLabel=document.createElement('label');includeLabel.className='detail-include';includeLabel.append(include,document.createTextNode('Inclure au bilan'));detailGrid.append(includeLabel);
+    const historyBox=document.createElement('div');historyBox.className='listing-history';detailPanel.append(detailGrid,historyBox);itemCell.append(detailPanel);
+    let listingHistory=Array.isArray(d.listingHistory)?d.listingHistory:[];tr._listingHistory=listingHistory;tr._stockTaxCarry=Number(d.stockTaxCarry)||0;tr._listingCarry=Number(d.listingCarry)||0;
+    const renderListingHistory=()=>{historyBox.replaceChildren();if(!listingHistory.length)return;const title=document.createElement('strong');title.textContent='Historique des annonces';historyBox.append(title);listingHistory.forEach((listing,index)=>{const line=document.createElement('p');line.textContent=`#${index+1} · ${listing.listedQty} listée(s), ${listing.soldQty||0} vendue(s) · taxe ${money(Number(listing.taxPaid)||0)}${listing.taxCarry?` · frais antérieurs ${money(Number(listing.taxCarry)||0)}`:''} · ${listing.expired?'expirée':listing.returned?'reliquat remis en stock':'vendue'}${listing.closedAt?` · ${new Date(listing.closedAt).toLocaleDateString('fr-FR')}`:''}`;historyBox.append(line)})};renderListingHistory();
+    tr.append(itemCell);
+    [cells[0],cells[1],cells[2],cells[3]].forEach(el=>{const td=document.createElement('td');td.append(el);tr.append(td)});
+    ['expected','realized'].forEach(cls=>{const td=document.createElement('td');td.className='money '+cls;td.textContent='—';tr.append(td)});
+    const actionTd=document.createElement('td');const remove=document.createElement('button');remove.type='button';remove.className='remove';remove.textContent='Retirer';remove.setAttribute('aria-label','Retirer cet achat');actionTd.append(remove);tr.append(actionTd);
+    const statusBadge=document.createElement('span');statusBadge.className='row-status-badge';
+    const stateCell=tr.cells[4];stateCell.classList.add('status-cell');stateCell.append(statusBadge);
+    tr._statusBadge=statusBadge;
+    [...cells.slice(0,5),include,lotInput,listedQty].forEach(el=>el.addEventListener('input',saveAndCalc));
+    cells[5].addEventListener('input',()=>{cells[5].dataset.manual=cells[5].value.trim()===''?'false':'true';cells[5].dataset.estimated='false';saveAndCalc()});
+    let previousState=state.value;
+    state.addEventListener('change',()=>{
+      if((state.value==='En vente'||state.value==='Ventes partielles')&&previousState==='En stock'){
+        const alreadySold=listingHistory.reduce((sum,listing)=>sum+(Number(listing.soldQty)||0),0);
+        listedQty.value=Math.max(0,(Number(cells[0].value)||0)-alreadySold);
+        tr._listingCarry=tr._stockTaxCarry;tr._stockTaxCarry=0;
+        cells[4].value=$('#defaultTax').value;
+        soldQty.value='';cells[5].value='';cells[5].dataset.manual='false';
+        const initialFee=Number(listedQty.value)*(Number(cells[2].value)||0)*((numeric(cells[4])??(Number($('#defaultTax').value)||0))/100);
+        if(initialFee>0){cells[5].value=String(Math.round(initialFee*100)/100);cells[5].dataset.manual='true';cells[5].dataset.estimated='true'}
+      }
+      if(state.value==='Ventes partielles'&&cells[5].dataset.manual!=='true'&&cells[5].value.trim()!==''){cells[5].dataset.manual='true';cells[5].dataset.estimated='true'}
+      if(state.value==='Invendu expiré'&&(previousState==='En vente'||previousState==='Ventes partielles')){
+        const listingCount=Number(listedQty.value)||0,partialSold=previousState==='Ventes partielles'?Math.max(0,Math.min(listingCount,Number(soldQty.value)||0)):0;
+        const gross=listingCount*(Number(cells[2].value)||0),fee=cells[5].dataset.manual==='true'?(Number(cells[5].value)||0):gross*((numeric(cells[4])??(Number($('#defaultTax').value)||0))/100);
+        const taxCarry=Number(tr._listingCarry)||0;
+        listingHistory.push({listedQty:listingCount,soldQty:partialSold,soldPrice:Number(cells[2].value)||0,taxPaid:fee,taxCarry,taxBasis:fee+taxCarry,taxEstimated:cells[5].dataset.estimated==='true',taxRate:numeric(cells[4])??(Number($('#defaultTax').value)||0),expired:true,closedAt:new Date().toISOString()});
+        renderListingHistory();state.value='En stock';listedQty.value='';soldQty.value='';cells[5].value='';cells[5].dataset.manual='false';cells[5].dataset.estimated='false';tr._listingCarry=0;tr._stockTaxCarry=0;
+      } else if(state.value==='Vendu'&&(previousState==='En vente'||previousState==='Ventes partielles')){
+        const listingCount=Number(listedQty.value)||0,previouslySold=previousState==='Ventes partielles'?Math.max(0,Math.min(listingCount,Number(soldQty.value)||0)):0,remaining=Math.max(0,listingCount-previouslySold);
+        const gross=listingCount*(Number(cells[2].value)||0),fee=cells[5].dataset.manual==='true'?(Number(cells[5].value)||0):gross*((numeric(cells[4])??(Number($('#defaultTax').value)||0))/100);
+        const taxCarry=Number(tr._listingCarry)||0;
+        const listingPrice=Number(cells[2].value)||0;
+        listingHistory.push({listedQty:listingCount,soldQty:listingCount,soldPrice:listingPrice,taxPaid:fee,taxCarry,taxBasis:fee+taxCarry,taxEstimated:cells[5].dataset.estimated==='true',taxRate:numeric(cells[4])??(Number($('#defaultTax').value)||0),expired:false,closedAt:new Date().toISOString(),sales:[...(previouslySold?[{qty:previouslySold,price:listingPrice}]:[]),...(remaining?[{qty:remaining,price:listingPrice}]:[])]});
+        listedQty.value='';soldQty.value='';renderListingHistory();tr._listingCarry=0;tr._stockTaxCarry=0;
+      }
+      partial.hidden=state.value!=='Ventes partielles';previousState=state.value;saveAndCalc()
+    });
+    soldQty.addEventListener('input',saveAndCalc);
+    commitPartial.addEventListener('click',()=>{
+      const count=Number(listedQty.value)||0,units=Math.max(0,Math.min(count,Number(soldQty.value)||0)),price=Number(cells[2].value)||0;
+      if(!count||!units||!price){soldQty.focus();return}
+      const fee=cells[5].dataset.manual==='true'?(Number(cells[5].value)||0):count*price*((numeric(cells[4])??(Number($('#defaultTax').value)||0))/100);
+      const carry=Number(tr._listingCarry)||0,totalBasis=carry+fee,remaining=Math.max(0,count-units),carryOut=count?totalBasis*remaining/count:0;
+      listingHistory.push({listedQty:count,soldQty:units,soldPrice:price,taxPaid:fee,taxCarry:carry,taxBasis:totalBasis,carryOut,taxEstimated:cells[5].dataset.estimated==='true',taxRate:numeric(cells[4])??(Number($('#defaultTax').value)||0),expired:false,returned:true,closedAt:new Date().toISOString(),sales:[{qty:units,price}]});
+      tr._stockTaxCarry=carryOut;tr._listingCarry=0;renderListingHistory();state.value='En stock';previousState='En stock';listedQty.value='';soldQty.value='';cells[5].value='';cells[5].dataset.manual='false';cells[5].dataset.estimated='false';partial.hidden=true;saveAndCalc();
+    });
+    remove.addEventListener('click',()=>{const label=picker.dataset.value||'cette ligne';if(confirm(`Retirer « ${label} » du suivi ?`)){tr.remove();saveAndCalc()}});
+    $('#rows').append(tr);
+    return tr;
+  }
+  function collect(){
+    return [...$('#rows').rows].map(r=>({
+      item:r.querySelector('.item-picker').dataset.value,lot:r.querySelector('.lot-note').value,q:numeric(r.querySelector('.q')),buy:numeric(r.querySelector('.buy')),sell:numeric(r.querySelector('.sell')),
+      state:r.querySelector('.operation-state').value,taxRate:numeric(r.querySelector('.rate')),taxPaid:r.querySelector('.paid').dataset.manual==='true'?numeric(r.querySelector('.paid')):null,taxEstimated:r.querySelector('.paid').dataset.estimated==='true',
+      soldQty:numeric(r.querySelector('.sold-qty')),soldPrice:null,listedQty:numeric(r.querySelector('.listed-qty')),listingCarry:r._listingCarry||0,stockTaxCarry:r._stockTaxCarry||0,listingHistory:r._listingHistory||[],include:r.querySelector('input[type=checkbox]').checked
+    }));
+  }
+  function renderOperationPage(){
+    const rows=[...$('#rows').rows],query=normalized($('#operationSearch').value),stateFilter=$('#operationStateFilter').value;
+    const matching=rows.filter(row=>{
+      const item=row.querySelector('.item-picker').dataset.value||'',note=row.querySelector('.lot-note').value||'',state=row.querySelector('.operation-state').value;
+      const expiredHistory=(row._listingHistory||[]).some(listing=>listing.expired);
+      return (!query||normalized(`${item} ${note}`).includes(query))&&(!stateFilter||(stateFilter==='Invendu expiré'?expiredHistory:state===stateFilter));
+    }).reverse();
+    const pageCount=Math.max(1,Math.ceil(matching.length/OPERATIONS_PER_PAGE));
+    operationPage=Math.max(0,Math.min(operationPage,pageCount-1));
+    const start=operationPage*OPERATIONS_PER_PAGE;
+    rows.forEach(row=>{row.hidden=true});
+    matching.slice(start,start+OPERATIONS_PER_PAGE).forEach(row=>{row.hidden=false});
+    $('#pageInfo').textContent=`Page ${operationPage+1} sur ${pageCount} · ${matching.length} opération${matching.length===1?'':'s'}`;
+    $('#previousPage').disabled=operationPage===0;
+    $('#nextPage').disabled=operationPage>=pageCount-1;
+  }
+  function calc(){
+    let expected=0,realized=0,capital=0,stockCapital=0,realizedCapital=0,pendingTax=0,realizedEstimated=false;
+    [...$('#rows').rows].forEach(r=>{
+      const q=Number(r.querySelector('.q').value)||0,b=Number(r.querySelector('.buy').value)||0,s=numeric(r.querySelector('.sell'));
+      const rate=(numeric(r.querySelector('.rate')) ?? (Number($('#defaultTax').value)||0))/100;
+      const state=r.querySelector('.operation-state').value,include=r.querySelector('input[type=checkbox]').checked,paidInput=r.querySelector('.paid');
+      const listingHistory=r._listingHistory||[],hasHistory=listingHistory.length>0;
+      const listingCount=Math.max(0,Number(r.querySelector('.listed-qty').value)||0);
+      const active=state==='En vente'||state==='Ventes partielles';
+      const draftSold=state==='Ventes partielles'?Math.max(0,Math.min(listingCount,Number(r.querySelector('.sold-qty').value)||0)):0;
+      const currentRemaining=active?Math.max(0,listingCount-draftSold):0;
+      const listingGross=s===null?null:listingCount*s,autoTax=listingGross===null?null:listingGross*rate;
+      if(paidInput.dataset.manual!=='true')paidInput.value=autoTax===null?'':String(Math.round(autoTax*100)/100);
+      const paid=paidInput.dataset.manual==='true'?numeric(paidInput):autoTax;
+      const currentFee=paid??0,currentBasis=currentFee+(Number(r._listingCarry)||0),currentRemainFee=listingCount?currentBasis*currentRemaining/listingCount:0;
+      let lotRealized=0,historySold=0,estimated=false;
+      listingHistory.forEach(listing=>{
+        const count=Number(listing.listedQty)||0,sold=Number(listing.soldQty)||0,fee=Number(listing.taxBasis??((Number(listing.taxPaid)||0)+(Number(listing.taxCarry)||0)))||0;
+        historySold+=sold;
+        const sales=Array.isArray(listing.sales)?listing.sales:[{qty:sold,price:Number(listing.soldPrice)||0}];
+        sales.forEach(sale=>{const units=Number(sale.qty)||0;lotRealized+=units*((Number(sale.price)||0)-b)-(count?fee*units/count:0)});
+        if(listing.expired&&count)lotRealized-=fee*Math.max(0,count-sold)/count;
+      if(listing.taxEstimated)estimated=true;
+      });
+      let legacyCapital=0;
+      if(!hasHistory&&state==='Vendu'&&listingGross!==null){lotRealized=listingGross-paid-q*b;legacyCapital=q*b;estimated=paidInput.dataset.manual!=='true'}
+      if(!hasHistory&&state==='Invendu expiré'){lotRealized=-(paid||0);estimated=paidInput.dataset.manual!=='true'}
+      const activeExpected=active&&s!==null?currentRemaining*(s-b)-currentRemainFee:null;
+      const exp=active?activeExpected:(!hasHistory&&state==='En stock'&&s!==null?s*q-(s*q*rate)-q*b:null);
+      const hasReal=hasHistory||state==='Vendu'||state==='Invendu expiré';
+      const expCell=r.querySelector('.expected'),realCell=r.querySelector('.realized'),beCell=r.querySelector('.breakEven');
+      expCell.textContent=exp===null?'—':money(exp);expCell.className='money expected '+(exp===null?'muted':exp>=0?'good':'bad');
+      realCell.textContent=hasReal?(estimated?'≈ ':'')+money(lotRealized):'—';realCell.className='money realized '+(!hasReal?'muted':lotRealized>=0?'good':'bad');
+      beCell.textContent=rate<1?money(b/(1-rate)):'—';
+      if(active){r.querySelector('.partial-hint').textContent=state==='Ventes partielles'?`À valider : ${draftSold} vendue(s) · ${currentRemaining} à remettre au stock après validation · taxe existante conservée.`:`Annonce active : ${listingCount} unité(s) · taxe déjà affectée : ${money(currentRemainFee)}`}
+      const lotStockQty=!hasHistory&&state==='Vendu'?0:Math.max(0,q-historySold-(active?listingCount:0));
+      const lotRealizedCapital=historySold*b+legacyCapital;
+      let statusText='En stock',statusClass='stock';
+      if(active){statusText=state==='Ventes partielles'?'Vente partielle à valider':'Annonce en cours';statusClass=state==='Ventes partielles'?'partial':'active'}
+      else if(state==='Invendu expiré'){statusText='Annonce expirée';statusClass='expired'}
+      else if(state==='Vendu'&&hasHistory&&lotStockQty>0){statusText=`Annonce vendue · ${lotStockQty} en stock`;statusClass='returned'}
+      else if(state==='Vendu'||(hasHistory&&lotStockQty===0)){statusText='Opération terminée';statusClass='complete'}
+      else if(hasHistory){const last=listingHistory[listingHistory.length-1];statusText=last.expired?`Annonce expirée · ${lotStockQty} en stock`:last.returned&&last.soldQty?`Vente partielle enregistrée · ${lotStockQty} en stock`:`Annonce clôturée · ${lotStockQty} en stock`;statusClass=last.expired?'expired':'returned'}
+      const statusBadge=r._statusBadge;statusBadge.textContent=statusText;statusBadge.className=`row-status-badge ${statusClass}`;
+      if(include){capital+=q*b;stockCapital+=lotStockQty*b;if(active)pendingTax+=currentRemainFee;if(exp!==null)expected+=exp;if(hasReal){realized+=lotRealized;realizedCapital+=lotRealizedCapital;if(estimated)realizedEstimated=true}}
+    });
+    $('#expectedTotal').textContent=money(expected);$('#expectedTotal').className=expected>=0?'good':'bad';
+    $('#realizedTotal').textContent=(realizedEstimated?'≈ ':'')+money(realized);$('#realizedTotal').className=realized>=0?'good':'bad';
+    $('#expectedPercent').textContent=`${percent(stockCapital>0?expected/stockCapital*100:NaN)} du capital en stock`;
+    $('#expectedPercent').className=expected>=0?'good':'bad';
+    $('#realizedPercent').textContent=`${percent(realizedCapital>0?realized/realizedCapital*100:NaN)} du capital des opérations conclues`;
+    $('#realizedPercent').className=realized>=0?'good':'bad';
+    $('#capitalTotal').textContent=money(capital);$('#stockCapitalTotal').textContent=money(stockCapital);$('#pendingTaxTotal').textContent=money(pendingTax);
+  }
+  function saveAndCalc(){
+    try{calc()}catch(error){logDev('error',`Recalcul interrompu : ${error?.stack||error}`)}
+    try{renderOperationPage()}catch(error){logDev('error',`Affichage des opérations interrompu : ${error?.stack||error}`)}
+    try{const data={version:4,defaultTax:Number($('#defaultTax').value)||0,customItems,rows:collect(),observations,estimatesImported};localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}
+    catch(error){logDev('error',`Sauvegarde automatique impossible : ${error?.message||error}`)}
+  }
+  function loadData(){
+    let data=null;try{data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null')}catch{}
+    if(!data){try{data=JSON.parse(localStorage.getItem(LEGACY_KEY)||'null')}catch{}}
+    if(data&&data.version===2&&Array.isArray(data.rows)){
+      data.rows=data.rows.map(r=>{if(r.item)return r;const bits=String(r.name||'').split(' — ');return {...r,item:bits[0],lot:bits.slice(1).join(' — ')}});
+      data.version=3;data.customItems=data.customItems||[];
+    }
+    if(!data||![3,4].includes(data.version)||!Array.isArray(data.rows))data=seed;
+    const oldSchema=data.version===3;
+    data.rows=data.rows.map(entry=>{
+      const renamed=normalized(entry.item)==='wood helmet'?{...entry,item:'Hood Helmet'}:normalized(entry.item)==='arpagophytum'?{...entry,item:'Harpagophytum'}:entry;
+      return oldSchema?migratePartialRow(renamed,data.defaultTax):renamed;
+    });
+    customItems=Array.isArray(data.customItems)?data.customItems:[];
+    observations=Array.isArray(data.observations)?data.observations.map(entry=>normalized(entry.item)==='wood helmet'?{...entry,item:'Hood Helmet'}:normalized(entry.item)==='arpagophytum'?{...entry,item:'Harpagophytum'}:entry):[];
+    if(customItems.some(item=>normalized(item)==='wood helmet'))customItems=customItems.map(item=>normalized(item)==='wood helmet'?'Hood Helmet':item);
+    estimatesImported=data.estimatesImported===true;
+    importFairValuesAsObservations();
+    $('#defaultTax').value=data.defaultTax??3.5;data.rows.forEach(makeRow);calc();
+  }
+  observationPicker=makePicker('');$('#observationItem').append(observationPicker);
+  $('#addObservation').addEventListener('click',addObservation);
+  $('#observationPrice').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addObservation()}});
+  $('#observationNote').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addObservation()}});
+  $('#observationSearch').addEventListener('input',renderObservations);
+  const setWorkspaceTab=tab=>{const observationsActive=tab==='observations';$('#operationsPanel').hidden=observationsActive;$('#observationsPanel').hidden=!observationsActive;$('#operationsTab').setAttribute('aria-selected',String(!observationsActive));$('#observationsTab').setAttribute('aria-selected',String(observationsActive))};
+  $('#operationsTab').addEventListener('click',()=>setWorkspaceTab('operations'));
+  $('#observationsTab').addEventListener('click',()=>setWorkspaceTab('observations'));
+  $('#clearDevLog').addEventListener('click',()=>{devLogs=[];try{sessionStorage.removeItem(DEV_LOG_KEY)}catch{}renderDevLogs()});
+  $('#copyDevLog').addEventListener('click',async()=>{const text=devLogs.map(entry=>`${entry.time} [${entry.level.toUpperCase()}] ${entry.message}`).join('\n')||'Aucune erreur enregistrée.';try{await navigator.clipboard.writeText(text);logDev('info','Journal copié dans le presse-papiers.')}catch(error){logDev('warn',`Copie impossible : ${error?.message||error}`)}});
+  $('#previousPage').addEventListener('click',()=>{operationPage--;renderOperationPage()});
+  $('#nextPage').addEventListener('click',()=>{operationPage++;renderOperationPage()});
+  $('#operationSearch').addEventListener('input',()=>{operationPage=0;renderOperationPage()});
+  $('#operationStateFilter').addEventListener('change',()=>{operationPage=0;renderOperationPage()});
+  $('#defaultTax').addEventListener('input',saveAndCalc);
+  $('#add').addEventListener('click',()=>{$('#operationSearch').value='';$('#operationStateFilter').value='';makeRow({item:'',state:'En stock',include:true});operationPage=0;saveAndCalc()});
+  document.addEventListener('click',e=>{if(!e.target.closest('.item-picker'))document.querySelectorAll('.item-menu').forEach(m=>m.classList.add('hidden'))});
+  $('#export').addEventListener('click',()=>{const data={version:4,defaultTax:Number($('#defaultTax').value)||0,customItems,rows:collect(),observations,estimatesImported};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='suivi-achats-reventes.json';a.click();URL.revokeObjectURL(a.href)});
+  $('#importButton').addEventListener('click',()=>$('#importFile').click());
+  $('#importFile').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{const data=JSON.parse(await file.text());if(!Array.isArray(data.rows))throw new Error('Format invalide');const oldSchema=(Number(data.version)||3)===3;data.rows=data.rows.map(row=>oldSchema?migratePartialRow(row,data.defaultTax??3.5):row);$('#rows').replaceChildren();$('#defaultTax').value=data.defaultTax??3.5;customItems=Array.isArray(data.customItems)?data.customItems:[];observations=Array.isArray(data.observations)?data.observations.map(entry=>normalized(entry.item)==='wood helmet'?{...entry,item:'Hood Helmet'}:entry):[];estimatesImported=data.estimatesImported===true;importFairValuesAsObservations();data.rows.forEach(makeRow);renderObservations();saveAndCalc()}catch{}e.target.value=''});
+  try{
+    loadData();
+    renderDevLogs();
+    renderOperationPage();
+    renderObservations();
+    saveAndCalc();
+    loadBedrockItems();
+  }catch(error){logDev('error',`Erreur au démarrage : ${error?.stack||error}`);const panel=document.getElementById('devLogPanel');if(panel)panel.open=true}
+})();
+</script>
+</body></html>
+
