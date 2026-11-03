@@ -24,10 +24,10 @@ button{background:#38684f;border:1px solid #49765e;border-radius:10px;color:#f0f
 @media(max-width:700px){body{padding:12px}.hero{padding:21px 18px;border-radius:17px;align-items:flex-start}.hero-badge{display:none}.card{padding:14px;border-radius:14px}.toolbar{align-items:flex-start}.toolbar .actions{margin-left:0;width:100%}.toolbar .actions button{flex:1}.summary{grid-template-columns:repeat(auto-fit,minmax(155px,1fr))}.metric{padding:12px}.metric strong{font-size:19px}}
 @media print{body{background:white;color:#111;padding:10px}.hero,.card,.metric{background:white;color:#111;box-shadow:none}.hero h1,.hero p{color:#111}.tablewrap{border-color:#ccc}.actions,button{display:none}}
 .observation-table{min-width:760px!important}
-.page-controls{display:flex;align-items:center;justify-content:center;gap:14px;margin:13px 0 2px}.page-controls button{min-width:110px}.page-controls button:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}.page-info{color:#b9c9bf;font-size:13px;min-width:92px;text-align:center}
+.page-controls{display:flex;align-items:center;justify-content:center;gap:14px;margin:13px 0 2px}.page-controls button{min-width:110px}.page-controls button:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}.page-info{color:#b9c9bf;font-size:13px;min-width:92px;text-align:center}.save-status{min-height:1.4em;margin:7px 0;color:#9bc8a8;font-size:12px}.save-status.error{color:#f09b91;font-weight:700}.listing-origin{margin-top:8px;padding:8px;border-left:2px solid #c99d5a;background:#272d27;color:#d7ccb0;font-size:11px}.history-corrections{display:flex;gap:7px;flex-wrap:wrap;margin:6px 0 10px}.history-corrections label{display:grid;gap:3px;color:#aaa99b;font-size:9px;text-transform:uppercase}.history-corrections input{width:105px;padding:5px;font-size:12px}
 .dev-log{grid-area:logs}.dev-log>summary{cursor:pointer;color:#c9b98e}.dev-log-content{margin-top:10px}.dev-log-actions{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.dev-log-list{max-height:260px;overflow:auto;margin:0;padding-left:28px;font:12px/1.5 ui-monospace,Consolas,monospace}.dev-log-list li{padding:3px 0;color:#c7d0c8;overflow-wrap:anywhere}.dev-log-list li.error{color:#f09b91}.dev-log-list li.warn{color:#e4c27a}.dev-log-list li.info{color:#a9cbb5}
 .operation-filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:12px 0}.operation-filters input{max-width:360px}.operation-filters select{max-width:220px}
-.partial-fields{display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:7px;margin-top:8px;padding:9px;border:1px solid #43534b;border-radius:10px;background:#1d2723}.partial-fields input,.partial-fields select{min-width:0;font-size:12px}.partial-fields .partial-hint{grid-column:1/-1;margin:0;font-size:11px;color:#a5b2aa}
+#listingExpiryDialog{width:min(460px,calc(100vw - 28px));padding:0;border:1px solid #5a6559;border-radius:9px;background:#202722;color:#e8e5d9;box-shadow:0 22px 70px #000a}#listingExpiryDialog::backdrop{background:#050806bb;backdrop-filter:blur(2px)}#listingExpiryForm{padding:22px;display:grid;gap:12px}#listingExpiryForm h2{margin:0;color:#eee9dc;font:500 24px Georgia,"Times New Roman",serif}#listingExpiryForm p{margin:0;color:#bdb9aa}#listingExpiryForm label{display:grid;gap:6px;color:#c9b98e;font-size:12px}#listingExpiryForm input{font-size:18px}#listingExpiryError{min-height:1.3em;color:#e58e88;font-size:12px}#listingExpiryForm .dialog-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}#confirmListingExpiry{background:#b3884e;border-color:#b3884e;color:#191b17}
 </style>
 <style>
 /* Visual refresh: compact trading journal rather than generic dashboard cards. */
@@ -49,10 +49,10 @@ main{max-width:1600px;padding:0 34px}
 .toolbar{align-items:center}.toolbar .actions{gap:7px}.toolbar .actions button{font-size:12px}.toolbar .actions button:first-child{background:#b3884e;border-color:#b3884e;color:#191b17}.toolbar .actions button:first-child:hover{background:#c99d5a}
 button{border-radius:4px;background:#2d3730;border-color:#4b584e;color:#e8e5d9}button:hover{background:#39473c;border-color:#9eaa8f;box-shadow:none}button.remove{border-radius:4px}
 input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8e5d9}input:focus,select:focus{border-color:#c99d5a;box-shadow:0 0 0 2px #c99d5a25;background:#222a24}
-.tablewrap{border:1px solid #41483f;border-radius:4px;background:#1e2420}table{min-width:1500px}th{background:#2a322c;color:#c9b98e;border-bottom:1px solid #4a5148;letter-spacing:.1em}td{color:#deded3;border-bottom:1px solid #343d36}tbody tr:hover td{background:#252e28}.item-menu{border-radius:5px;background:#222a24;border-color:#5a6559}.item-toggle{background:#202722}.partial-fields{border-radius:4px;background:#242c26}.page-controls button{border-radius:4px}
+.tablewrap{border:1px solid #41483f;border-radius:4px;background:#1e2420}table{min-width:1500px}th{background:#2a322c;color:#c9b98e;border-bottom:1px solid #4a5148;letter-spacing:.1em}td{color:#deded3;border-bottom:1px solid #343d36}tbody tr:hover td{background:#252e28}.item-menu{border-radius:5px;background:#222a24;border-color:#5a6559}.item-toggle{background:#202722}.page-controls button{border-radius:4px}
 .operation-filters{padding:0 0 8px}.operation-filters input{max-width:460px}.operation-filters select{max-width:250px}
 .observation-form{margin:18px 0}.observation-table{min-width:800px!important}
-.operations-section table{min-width:980px}.item-cell{min-width:230px}.item-picker{min-width:190px}.status-cell{min-width:148px}.row-status-badge{display:inline-block;margin-top:6px;padding:3px 7px;border:1px solid #59644f;border-radius:999px;background:#2a342c;color:#c4c7aa;font-size:10px;line-height:1.3;white-space:normal}.row-status-badge.complete{background:#263a2d;border-color:#58775b;color:#a9d1a3;font-weight:700}.row-status-badge.partial,.row-status-badge.returned{background:#3b3325;border-color:#78613b;color:#e5c27b;font-weight:650}.row-status-badge.expired{background:#382b28;border-color:#725047;color:#e1a28e}.row-status-badge.active{background:#26343b;border-color:#526d7b;color:#9fc5d2}.tax-paid-display{margin-top:5px;color:#e7d9b8;font-size:12px;line-height:1.4;font-variant-numeric:tabular-nums;font-weight:650}.tax-paid-cell{min-width:110px;color:#e7d9b8;font-variant-numeric:tabular-nums;font-weight:650}.row-details{margin-top:7px;color:#bdbdac;font-size:11px}.row-details summary,.backup-menu summary{cursor:pointer;color:#c8b98f;user-select:none}.row-details summary:hover,.backup-menu summary:hover{color:#e7c783}.row-detail-grid{display:grid;grid-template-columns:repeat(3,minmax(110px,1fr));gap:8px;padding:10px 0 2px}.detail-field{display:flex;flex-direction:column;gap:4px;color:#aaa99b;font-size:10px;letter-spacing:.04em;text-transform:uppercase}.detail-field input{font-size:13px}.break-even-wrap strong{font-size:14px;color:#e2dfd2;letter-spacing:0}.detail-include{display:flex;align-items:center;gap:7px;grid-column:1/-1;color:#bdbdac;font-size:11px}.detail-include input{width:17px;height:17px;accent-color:#c99d5a}.partial-hint{font-size:10px!important;line-height:1.4}.commit-partial{grid-column:1/-1;width:100%;background:#9a7541;border-color:#b18b53;color:#171913}.commit-partial:hover{background:#b18b53}.listing-history{margin-top:10px;padding-top:8px;border-top:1px solid #41483f;color:#bcb9a9}.listing-history strong{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#c9b98e}.listing-history p{margin:5px 0;font-size:11px}.backup-menu{position:relative}.backup-menu>summary{list-style:none;border:1px solid #4b584e;border-radius:4px;padding:8px 11px;background:#2d3730;font-size:12px}.backup-menu>summary::-webkit-details-marker{display:none}.backup-menu[open]>div{position:absolute;z-index:30;right:0;top:calc(100% + 6px);width:205px;padding:7px;background:#242c26;border:1px solid #505b50;box-shadow:0 12px 25px #0008;display:grid;gap:6px}.backup-menu>div button{width:100%;text-align:left;font-size:12px}
+.operations-section table{min-width:980px}.item-cell{min-width:230px}.item-picker{min-width:190px}.status-cell{min-width:148px}.row-status-badge{display:inline-block;margin-top:6px;padding:3px 7px;border:1px solid #59644f;border-radius:999px;background:#2a342c;color:#c4c7aa;font-size:10px;line-height:1.3;white-space:normal}.row-status-badge.complete{background:#263a2d;border-color:#58775b;color:#a9d1a3;font-weight:700}.row-status-badge.returned{background:#3b3325;border-color:#78613b;color:#e5c27b;font-weight:650}.row-status-badge.expired{background:#4b2925;border:2px solid #b86e5e;color:#ffd0c2;font-weight:800;letter-spacing:.04em;text-transform:uppercase}.row-status-badge.active{background:#26343b;border-color:#526d7b;color:#9fc5d2}.tax-paid-display{margin-top:5px;color:#e7d9b8;font-size:12px;line-height:1.4;font-variant-numeric:tabular-nums;font-weight:650}.tax-paid-cell{min-width:110px;color:#e7d9b8;font-variant-numeric:tabular-nums;font-weight:650}.row-details{margin-top:7px;color:#bdbdac;font-size:11px}.row-details summary,.backup-menu summary{cursor:pointer;color:#c8b98f;user-select:none}.row-details summary:hover,.backup-menu summary:hover{color:#e7c783}.row-detail-grid{display:grid;grid-template-columns:repeat(3,minmax(110px,1fr));gap:8px;padding:10px 0 2px}.detail-field{display:flex;flex-direction:column;gap:4px;color:#aaa99b;font-size:10px;letter-spacing:.04em;text-transform:uppercase}.detail-field input{font-size:13px}.break-even-wrap strong{font-size:14px;color:#e2dfd2;letter-spacing:0}.detail-include{display:flex;align-items:center;gap:7px;grid-column:1/-1;color:#bdbdac;font-size:11px}.detail-include input{width:17px;height:17px;accent-color:#c99d5a}.listing-history{margin-top:10px;padding-top:8px;border-top:1px solid #41483f;color:#bcb9a9}.listing-history strong{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#c9b98e}.listing-history p{margin:5px 0;font-size:11px}.backup-menu{position:relative}.backup-menu>summary{list-style:none;border:1px solid #4b584e;border-radius:4px;padding:8px 11px;background:#2d3730;font-size:12px}.backup-menu>summary::-webkit-details-marker{display:none}.backup-menu[open]>div{position:absolute;z-index:30;right:0;top:calc(100% + 6px);width:205px;padding:7px;background:#242c26;border:1px solid #505b50;box-shadow:0 12px 25px #0008;display:grid;gap:6px}.backup-menu>div button{width:100%;text-align:left;font-size:12px}
 @media(max-width:1100px){main{grid-template-columns:minmax(0,1fr) 280px;column-gap:24px}table{min-width:1420px}}
 @media(max-width:820px){main{display:flex;flex-direction:column;align-items:stretch}.hero,.catalog-status,.summary-section,.tax,.operations-section,.observations-section{width:100%}.summary{grid-template-columns:repeat(2,minmax(0,1fr))}.metric{border-right:1px solid #41483f;border-bottom:1px solid #41483f}.metric:nth-child(2n){border-right:0}.metric:last-child{grid-column:1/-1;border-bottom:0}.tax{margin-top:4px}}
 @media(max-width:700px){main{padding:0 16px}.hero{margin-bottom:20px;padding:25px 16px;min-height:180px}.hero h1{font-size:42px}.hero-badge{display:none}.card{padding:20px 0}.card h2{font-size:25px}.toolbar{gap:12px}.toolbar .actions{width:100%}.toolbar .actions button{flex:1}.summary{grid-template-columns:1fr 1fr}.metric{min-height:110px;padding:13px 11px}.metric strong{font-size:20px}.tax{align-items:center}.operations-section table{min-width:760px}.row-detail-grid{grid-template-columns:repeat(2,minmax(100px,1fr))}}
@@ -75,11 +75,12 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
 <nav class="workspace-tabs" role="tablist" aria-label="Sections du suivi"><button id="operationsTab" type="button" role="tab" aria-controls="operationsPanel" aria-selected="true">Opérations</button><button id="observationsTab" type="button" role="tab" aria-controls="observationsPanel" aria-selected="false">Items observés</button></nav>
 
 <section class="card operations-section" id="operationsPanel" role="tabpanel" aria-labelledby="operationsTab">
-  <div class="toolbar"><h2>Opérations et stocks</h2><div class="actions"><button id="add">＋ Ajouter un achat</button><details class="backup-menu"><summary>Sauvegarde</summary><div><button id="export" type="button">Exporter une sauvegarde</button><button id="importButton" type="button">Importer une sauvegarde</button></div></details><input id="importFile" class="hidden" type="file" accept="application/json"></div></div>
-  <div class="operation-filters"><input id="operationSearch" type="search" placeholder="Rechercher un item ou une note…" aria-label="Rechercher dans les opérations"><select id="operationStateFilter" aria-label="Filtrer par état"><option value="">Tous les états</option><option>En stock</option><option>En vente</option><option>Ventes partielles</option><option>Vendu</option><option>Invendu expiré</option></select></div>
+  <div class="toolbar"><h2>Opérations et stocks</h2><div class="actions"><button id="add">＋ Ajouter un achat</button><details class="backup-menu"><summary>Sauvegarde</summary><div><button id="export" type="button">Exporter une sauvegarde</button><button id="importButton" type="button">Importer une sauvegarde</button><button id="restoreAutoBackup" type="button">Restaurer la copie auto</button></div></details><input id="importFile" class="hidden" type="file" accept="application/json"></div></div>
+  <p id="saveStatus" class="save-status" role="status" aria-live="polite">Sauvegarde automatique active.</p>
+  <div class="operation-filters"><input id="operationSearch" type="search" placeholder="Rechercher un item ou une note…" aria-label="Rechercher dans les opérations"><select id="operationStateFilter" aria-label="Filtrer par état"><option value="">Tous les états</option><option>En stock</option><option>En vente</option><option>Vendu</option><option>Invendu expiré</option></select></div>
   <div class="tablewrap"><table><thead><tr><th>Item / lot</th><th>Qté</th><th>Achat / unité</th><th>Prix de vente / unité</th><th>État</th><th>Taxe payée</th><th>Gain prévu</th><th>Gain réalisé</th><th>Action</th></tr></thead><tbody id="rows"></tbody></table></div>
   <div class="page-controls"><button id="previousPage" type="button">← Précédent</button><span id="pageInfo" class="page-info">Page 1 sur 1</span><button id="nextPage" type="button">Suivant →</button></div>
-  <p class="foot">Chaque mise en vente garde sa quantité, son prix et sa taxe. Pour enregistrer une vente partielle, saisis seulement la quantité vendue : elle est comptabilisée au prix déjà défini pour l’annonce, puis le reliquat retourne au stock avec sa part de taxe déjà payée. Le reliquat pourra être remis en vente séparément avec un nouveau prix. « Invendu expiré » clôture une annonce sans vente et comptabilise les frais de taxe correspondants. Décoche « Au bilan » pour exclure un achat d’expérience.</p>
+  <p class="foot">Chaque mise en vente garde sa quantité, son prix et sa taxe. À l’expiration d’une annonce, choisis « Invendu expiré » puis indique combien d’unités restent en stock. Le reste est comptabilisé comme vendu au prix déjà enregistré ; le stock restant devient une nouvelle opération. La taxe déjà payée sur l’annonce expirée reste enregistrée une fois. Décoche « Au bilan » pour exclure un achat d’expérience.</p>
 </section>
 
 <section class="card observations-section" id="observationsPanel" role="tabpanel" aria-labelledby="observationsTab" hidden>
@@ -97,11 +98,12 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
 </details>
 
 </main>
+<dialog id="listingExpiryDialog" aria-labelledby="listingExpiryTitle"><form id="listingExpiryForm" method="dialog"><h2 id="listingExpiryTitle">Annonce expirée · stock restant</h2><p id="listingExpiryDescription">Indique combien d’unités n’ont pas été vendues. Ce stock sera créé dans une nouvelle opération.</p><label for="listingExpiryRemaining">Quantité restante en stock</label><input id="listingExpiryRemaining" type="number" min="0" step="1" inputmode="numeric" required><p id="listingExpiryError" role="alert"></p><div class="dialog-actions"><button id="cancelListingExpiry" type="button">Annuler</button><button id="confirmListingExpiry" type="submit">Enregistrer l’expiration</button></div></form></dialog>
 <script>
 (() => {
   'use strict';
   const DEV_LOG_KEY='palladium-dev-log-v1',DEV_LOG_LIMIT=100;
-  let devLogs=[];
+  let devLogs=[],pendingListingExpiry=null;
   function renderDevLogs(){
     const list=document.getElementById('devLogList'),count=document.getElementById('devLogCount');
     if(!list||!count)return;
@@ -116,17 +118,61 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
   window.addEventListener('DOMContentLoaded',renderDevLogs,{once:true});
   const STORAGE_KEY = 'palladium-resale-tracker-vierge-v1';
   const LEGACY_KEY = 'palladium-resale-tracker-vierge-v0';
+  const AUTO_BACKUP_KEY = `${STORAGE_KEY}-backup-v1`;
   const BEDROCK_CACHE_KEY = 'minecraft-bedrock-items-v1';
+  const BEDROCK_TRANSLATION_CACHE_KEY = 'minecraft-bedrock-item-translations-v1';
   const BEDROCK_ITEMS_URL = 'https://raw.githubusercontent.com/MicrosoftDocs/minecraft-creator/main/creator/Reference/Content/VanillaListingsReference/Items.md';
+  const VANILLA_EN_NAMES_URL = 'https://raw.githubusercontent.com/xydesu/minecraft-lang/main/en_us.json';
+  const VANILLA_FR_NAMES_URL = 'https://raw.githubusercontent.com/xydesu/minecraft-lang/main/fr_fr.json';
   const fairValues = [];
+  const normalized = s => String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').trim().toLocaleLowerCase('fr');
   const catalogue = [
-    'Amethyst Block (non-géode)','Amethyst Ingot','Amethyst Block de géode','Amethyst Compressed','Harpagophytum','Beef','Bloc d’améthyste de géode','Bloc d’améthyste (non-géode)','Bloc de palladium','Bloc de palladium vert','Bloc de titane','Bottes en améthyste','Bottes en endium','Bottes en paladium','Bottes en paladium vert','Bottes en titane','Bottes de voyage','Bottes en palladium','Casque en améthyste','Casque en endium','Casque en paladium','Casque en paladium vert','Casque en titane','Chestplate Travel','Double XP Potion','Dynamite','Dynamite Big','Dynamite Endium','Endium Ingot','Endium Nugget','Excavatrice en paladium','Excavatrice en titane','Findium','Fragment d’Endium','Glowstone','Green Palladium Ingot','Green Palladium Sword','Hammer','Hache en améthyste','Hache en endium','Hache en paladium','Hache en paladium vert','Hache en titane','Heal Stick','Hood Helmet','Houe en améthyste','Houe en endium','Houe en paladium','Houe en paladium vert','Houe en titane','Jambières en améthyste','Jambières en endium','Jambières en paladium','Jambières en paladium vert','Jambières en titane','Jambières de voyage','Legend Array Stone of Job','Legend Array Stone of Teleportation','Lingot d’améthyste','Lingot de palladium','Lingot de palladium vert','Lingot de titane','Lingot d’endium','Magnet','Medium Ring','Obsidian Boom','Obsidienne empoisonnée','Palladium Apple','Palladium brut','Palladium Ore','Paladium Compressed','Paladium Green','Paladium Ingot','Pala Machine','Pelle en améthyste','Pelle en endium','Pelle en paladium','Pelle en paladium vert','Pelle en titane','Pioche en améthyste','Pioche en endium','Pioche en paladium','Pioche en paladium vert','Pioche en titane','Pioche of the God','Pierre légendaire des métiers','Pierre légendaire de téléportation','Plastron en améthyste','Plastron en endium','Plastron en paladium','Plastron en paladium vert','Plastron en titane','Plastron de saut','Potion double XP','Raw Palladium','Raw Titanium','Small Ring','Spike Améthyste','Spike Diamond','Spike Gold','Spike Iron','Spike Paladium','Spike Titanium','Spike Wood','Speed Stick','Stick of God','Strength Stick','Épée en améthyste','Épée en endium','Épée en paladium','Épée en paladium vert','Épée en titane','Titane brut','Totem de fertilité','Unclaimed Finder Bleu','Unclaimed Finder Orange','Unclaimed Finder Rouge','Unclaimed Finder Vert','XP Berry','Wooden Hammer','Outil de construction en améthyste','Outil de construction en endium','Outil de construction en paladium','Outil de construction en titane'
+    'Amethyst Block (non-géode)','Amethyst Ingot','Amethyst Block de géode','Amethyst Compressed','Harpagophytum','Beef','Bloc d’améthyste de géode','Bloc d’améthyste (non-géode)','Bloc de paladium','Bloc de paladium vert','Bloc de titane','Bottes en améthyste','Bottes en endium','Bottes en paladium','Bottes en paladium vert','Bottes en titane','Bottes de voyage','Casque en améthyste','Casque en endium','Casque en paladium','Casque en paladium vert','Casque en titane','Chestplate Travel','Double XP Potion','Dynamite','Dynamite Big','Endium Dynamite','Endium Ingot','Endium Nugget','Excavatrice en paladium','Excavatrice en titane','Findium','Fragment d’Endium','Glowstone','Green Paladium Ingot','Green Paladium Sword','Hammer','Hache en améthyste','Hache en endium','Hache en paladium','Hache en paladium vert','Hache en titane','Heal Stick','Hood Helmet','Houe en améthyste','Houe en endium','Houe en paladium','Houe en paladium vert','Houe en titane','Jambières en améthyste','Jambières en endium','Jambières en paladium','Jambières en paladium vert','Jambières en titane','Jambières de voyage','Legend Array Stone of Job','Legend Array Stone of Teleportation','Lingot d’améthyste','Lingot de paladium','Lingot de paladium vert','Lingot de titane','Lingot d’endium','Magnet','Medium Ring','Obsidian Boom','Obsidienne empoisonnée','Paladium Apple','Paladium brut','Paladium Ore','Paladium Compressed','Paladium Green','Paladium Ingot','Pala Machine','Pelle en améthyste','Pelle en endium','Pelle en paladium','Pelle en paladium vert','Pelle en titane','Pioche en améthyste','Pioche en endium','Pioche en paladium','Pioche en paladium vert','Pioche en titane','Pioche of the God','Pierre légendaire des métiers','Pierre légendaire de téléportation','Plastron en améthyste','Plastron en endium','Plastron en paladium','Plastron en paladium vert','Plastron en titane','Plastron de saut','Potion double XP','Potion d’expérience (vanilla)','Raw Paladium','Raw Titanium','Small Ring','Spike Améthyste','Spike Diamond','Spike Gold','Spike Iron','Spike Paladium','Spike Titanium','Spike Wood','Speed Stick','Stick of God','Strength Stick','Épée en améthyste','Épée en endium','Épée en paladium','Épée en paladium vert','Épée en titane','Titane brut','Totem de fertilité','Détecteur de territoire non revendiqué bleu','Unclaim Finder Orange','Détecteur de territoire non revendiqué rouge','Détecteur de territoire non revendiqué vert','XP Berry','Wooden Hammer','Outil de construction en améthyste','Outil de construction en endium','Outil de construction en paladium','Outil de construction en titane'
   ];
+  const additionalBilingualItems = [
+    'Améthyste brute','Raw Amethyst','Épée de capture','Capture Sword','Pierre de capture','Capture Stone','Sifflet de monture','Mount Whistle','Bandage',
+    'Lance-potion','Potion Launcher','Liste blanche du gardien',"Warden's Whitelist",'Aimant','Petit anneau','Small Ring','Anneau moyen','Medium Ring','Grand anneau','Big Ring',
+    'Unclaim Finder Green','Unclaim Finder Orange','Unclaim Finder Red','Unclaim Finder Blue','Dynamite en endium','Endium Dynamite',
+    'Cadeau de chasseur commun','Common Hunter Gift','Cadeau de chasseur rare','Rare Hunter Gift','Cadeau de chasseur épique','Epic Hunter Gift','Cadeau de chasseur légendaire','Legendary Hunter Gift',
+    'Cadeau de mineur commun','Common Miner Gift','Cadeau de mineur rare','Rare Miner Gift','Cadeau de mineur épique','Epic Miner Gift','Cadeau de mineur légendaire','Legendary Miner Gift',
+    'Cadeau de fermier commun','Common Farmer Gift','Cadeau de fermier rare','Rare Farmer Gift','Cadeau de fermier épique','Epic Farmer Gift','Cadeau de fermier légendaire','Legendary Farmer Gift','Croquette','Kibble',
+    'Sac à dos en améthyste','Amethyst Backpack','Sac à dos en titane','Titanium Backpack','Sac à dos en paladium','Paladium Backpack','Sac à dos en endium','Endium Backpack',
+    'Fondation d’enclos','Pen Foundation','Barrière d’enclos','Pen Fence','Gestionnaire d’enclos','Pen Manager',
+    'Planteur de graines en améthyste','Amethyst Seedplanter','Planteur de graines en titane','Titanium Seedplanter','Planteur de graines en paladium','Paladium Seedplanter','Planteur de graines en paladium vert','Green Paladium Seedplanter','Planteur de graines en endium','Endium Seedplanter',
+    'Amélioration de tiroir en améthyste','Drawer Upgrade Amethyst','Amélioration de tiroir en titane','Drawer Upgrade Titanium','Amélioration de tiroir en paladium','Drawer Upgrade Paladium','Amélioration de tiroir en paladium vert','Drawer Upgrade Green Paladium',
+    'Pépite d’améthyste','Amethyst Nugget','Pépite de titane','Titanium Nugget','Pépite de paladium','Paladium Nugget','Pépite de paladium vert','Green Paladium Nugget',
+    'Roller','Rouleau','Pierre d’argent','Money Stone','Pierre fissurée','Cracked Stone',
+    'Corne en améthyste','Amethyst Horn','Corne en titane','Titanium Horn','Corne en paladium','Paladium Horn','Explorateur de coffre','Chest Explorer',
+    "Amethyst Builder's Wand","Baguette de construction en améthyste","Titanium Builder's Wand","Baguette de construction en titane","Paladium Builder's Wand","Baguette de construction en paladium","Endium Builder's Wand","Baguette de construction en endium",
+    'Amélioration Cobble Breaker Amethyst','Amethyst Cobble Breaker Upgrade','Amélioration Cobble Breaker Titanium','Titanium Cobble Breaker Upgrade','Amélioration Cobble Breaker Paladium','Paladium Cobble Breaker Upgrade',
+    'Excavatrice en améthyste','Amethyst Excavator','Excavatrice en titane','Titanium Excavator','Excavatrice en paladium','Paladium Excavator'
+  ];
+  // Paires de libellés FR/EN pour le catalogue Paladium. Les deux formes restent
+  // sélectionnables, mais une seule entrée canonique est conservée par langue.
+  const itemTranslationPairs = [
+    ['Amethyst Block (non-géode)','Bloc d’améthyste (non-géode)'],['Amethyst Ingot','Lingot d’améthyste'],['Amethyst Block de géode','Bloc d’améthyste de géode'],['Amethyst Compressed','Améthyste compressée'],['Beef','Bœuf'],['Chestplate Travel','Plastron de voyage'],['Double XP Potion','Potion double XP'],['Dynamite Big','Grande dynamite'],['Endium Dynamite','Dynamite en endium'],['Endium Ingot','Lingot d’endium'],['Endium Nugget','Pépite d’endium'],['Findium','Findium'],['Endium Fragment','Fragment d’endium'],['Glowstone','Pierre lumineuse'],['Green Paladium Ingot','Lingot de paladium vert'],['Green Paladium Sword','Épée en paladium vert'],['Hammer','Marteau'],['Heal Stick','Bâton de soin'],['Hood Helmet','Casque à capuche'],['Travel Leggings','Jambières de voyage'],['Travel Boots','Bottes de voyage'],['Legend Array Stone of Job','Pierre légendaire des métiers'],['Legend Array Stone of Teleportation','Pierre légendaire de téléportation'],['Magnet','Aimant'],['Medium Ring','Anneau moyen'],['Small Ring','Petit anneau'],['Big Ring','Grand anneau'],['Obsidian Boom','Obsidienne explosive'],['Poisoned Obsidian','Obsidienne empoisonnée'],['Paladium Apple','Pomme de paladium'],['Raw Paladium','Paladium brut'],['Paladium Ore','Minerai de paladium'],['Paladium Compressed','Paladium compressé'],['Paladium Green','Paladium vert'],['Paladium Ingot','Lingot de paladium'],['Paladium Block','Bloc de paladium'],['Paladium Nugget','Pépite de paladium'],['Paladium Particle','Particule de paladium'],['Paladium Core','Cœur en paladium'],['Titanium Ore','Minerai de titane'],['Titanium Ingot','Lingot de titane'],['Titanium Block','Bloc de titane'],['Titanium Compressed','Titane compressé'],['Titanium Nugget','Pépite de titane'],['Amethyst Ore','Minerai d’améthyste'],['Amethyst Shard','Éclat d’améthyste'],['Amethyst Seed','Graine d’améthyste'],['Amethyst Block','Bloc d’améthyste'],['Amethyst Sword','Épée en améthyste'],['Amethyst Helmet','Casque en améthyste'],['Amethyst Chestplate','Plastron en améthyste'],['Amethyst Leggings','Jambières en améthyste'],['Amethyst Boots','Bottes en améthyste'],['Amethyst Pickaxe','Pioche en améthyste'],['Amethyst Shovel','Pelle en améthyste'],['Amethyst Axe','Hache en améthyste'],['Amethyst Hoe','Houe en améthyste'],['Titanium Sword','Épée en titane'],['Titanium Helmet','Casque en titane'],['Titanium Chestplate','Plastron en titane'],['Titanium Leggings','Jambières en titane'],['Titanium Boots','Bottes en titane'],['Titanium Pickaxe','Pioche en titane'],['Titanium Shovel','Pelle en titane'],['Titanium Axe','Hache en titane'],['Titanium Hoe','Houe en titane'],['Paladium Sword','Épée en paladium'],['Paladium Helmet','Casque en paladium'],['Paladium Chestplate','Plastron en paladium'],['Paladium Leggings','Jambières en paladium'],['Paladium Boots','Bottes en paladium'],['Paladium Pickaxe','Pioche en paladium'],['Paladium Shovel','Pelle en paladium'],['Paladium Axe','Hache en paladium'],['Paladium Hoe','Houe en paladium'],['Green Paladium Ore','Minerai de paladium vert'],['Green Paladium Block','Bloc de paladium vert'],['Green Paladium Compressed','Paladium vert compressé'],['Green Paladium Nugget','Pépite de paladium vert'],['Green Paladium Helmet','Casque en paladium vert'],['Green Paladium Chestplate','Plastron en paladium vert'],['Green Paladium Leggings','Jambières en paladium vert'],['Green Paladium Boots','Bottes en paladium vert'],['Green Paladium Pickaxe','Pioche en paladium vert'],['Green Paladium Shovel','Pelle en paladium vert'],['Green Paladium Axe','Hache en paladium vert'],['Green Paladium Hoe','Houe en paladium vert'],['Endium Fragment','Fragment d’endium'],['Endium Nugget','Pépite d’endium'],['Endium Block','Bloc d’endium'],['Endium Compressed','Endium compressé'],['Endium Sword','Épée en endium'],['Endium Helmet','Casque en endium'],['Endium Chestplate','Plastron en endium'],['Endium Leggings','Jambières en endium'],['Endium Boots','Bottes en endium'],['Endium Pickaxe','Pioche en endium'],['Endium Shovel','Pelle en endium'],['Endium Axe','Hache en endium'],['Endium Hoe','Houe en endium'],['Findium Ore','Minerai de findium'],['Findium Ingot','Lingot de findium'],['Findium Block','Bloc de findium'],['Findium Compressed','Findium compressé'],['Prototype Helmet','Casque prototype'],['Prototype Chestplate','Plastron prototype'],['Prototype Leggings','Jambières prototype'],['Prototype Boots','Bottes prototype'],['Jump Chestplate','Plastron de saut'],['Pickaxe of God','Pioche du dieu'],['Amethyst Spike','Pointe en améthyste'],['Diamond Spike','Pointe en diamant'],['Gold Spike','Pointe en or'],['Iron Spike','Pointe en fer'],['Paladium Spike','Pointe en paladium'],['Titanium Spike','Pointe en titane'],['Wood Spike','Pointe en bois'],['Speed Stick','Bâton de vitesse'],['Stick of God','Bâton du dieu'],['Strength Stick','Bâton de force'],['Jump Stick','Bâton de saut'],['Damage Stick','Bâton de dégâts'],['Hyper Jump Stick','Bâton d’hyper-saut'],['Heal Orb','Orbe de soin'],['Speed Orb','Orbe de vitesse'],['Strength Orb','Orbe de force'],['Jump Orb','Orbe de saut'],['Wing','Aile'],['Hang Glider','Deltaplane'],['Random Legendary Stone','Pierre légendaire aléatoire'],['Legendary Stone of Invisibility','Pierre légendaire d’invisibilité'],['Legendary Stone of Fortune','Pierre légendaire de fortune'],['Legendary Stone of Power','Pierre légendaire de pouvoir'],['Legendary Stone of Chaos','Pierre légendaire de chaos'],['Totem of Fertility','Totem de fertilité'],['Common Hunter Gift','Cadeau de chasseur commun'],['Rare Hunter Gift','Cadeau de chasseur rare'],['Epic Hunter Gift','Cadeau de chasseur épique'],['Legendary Hunter Gift','Cadeau de chasseur légendaire'],['Common Miner Gift','Cadeau de mineur commun'],['Rare Miner Gift','Cadeau de mineur rare'],['Epic Miner Gift','Cadeau de mineur épique'],['Legendary Miner Gift','Cadeau de mineur légendaire'],['Common Farmer Gift','Cadeau de fermier commun'],['Rare Farmer Gift','Cadeau de fermier rare'],['Epic Farmer Gift','Cadeau de fermier épique'],['Legendary Farmer Gift','Cadeau de fermier légendaire'],['Kibble','Croquette'],['Pen Foundation','Fondation d’enclos'],['Pen Fence','Barrière d’enclos'],['Pen Manager','Gestionnaire d’enclos'],['Amethyst Backpack','Sac à dos en améthyste'],['Titanium Backpack','Sac à dos en titane'],['Paladium Backpack','Sac à dos en paladium'],['Endium Backpack','Sac à dos en endium'],['Amethyst Seedplanter','Planteur de graines en améthyste'],['Titanium Seedplanter','Planteur de graines en titane'],['Paladium Seedplanter','Planteur de graines en paladium'],['Green Paladium Seedplanter','Planteur de graines en paladium vert'],['Endium Seedplanter','Planteur de graines en endium'],['Amethyst Horn','Corne en améthyste'],['Titanium Horn','Corne en titane'],['Paladium Horn','Corne en paladium'],['Chest Explorer','Explorateur de coffre'],['Amethyst Builder’s Wand','Baguette de construction en améthyste'],['Titanium Builder’s Wand','Baguette de construction en titane'],['Paladium Builder’s Wand','Baguette de construction en paladium'],['Endium Builder’s Wand','Baguette de construction en endium'],['Amethyst Cobble Breaker Upgrade','Amélioration Cobble Breaker Amethyst'],['Titanium Cobble Breaker Upgrade','Amélioration Cobble Breaker Titanium'],['Paladium Cobble Breaker Upgrade','Amélioration Cobble Breaker Paladium'],['Amethyst Excavator','Excavatrice en améthyste'],['Titanium Excavator','Excavatrice en titane'],['Paladium Excavator','Excavatrice en paladium'],['Endium Excavator','Excavatrice en endium'],['Miner XP 1000','Expérience mineur 1000 XP'],['Farmer XP 1000','Expérience fermier 1000 XP'],['Hunter XP 1000','Expérience chasseur 1000 XP'],['Alchemist XP 1000','Expérience alchimiste 1000 XP'],['Miner XP Bottle 1000','Bouteille d’XP mineur 1000'],['Farmer XP Bottle 1000','Bouteille d’XP fermier 1000'],['Hunter XP Bottle 1000','Bouteille d’XP chasseur 1000'],['Alchemist XP Bottle 1000','Bouteille d’XP alchimiste 1000'],['Bottle o’ Enchanting','Potion d’expérience (vanilla)'],['Chervil','Cerfeuil'],['Chervil Seed','Graine de cerfeuil'],['Kiwanos','Kiwano'],['Eggplant','Aubergine'],['Orangblossom','Fleur d’oranger'],['Slimepad','Slimepad'],['Pommadium','Pommadium'],['Palapple','Palapple'],['Palamachine','Palamachine'],['Grinder','Broyeur'],['Grinder Block','Bloc du Grinder'],['Grinder Border','Bordure de Grinder'],['Grinder Piece','Morceau de Grinder'],['Grinder Table','Table de Grinder'],['Robinia Grinder','Robinier de Grinder'],['Cobblebreaker','Cobblebreaker'],['Crusher','Broyeur concasseur'],['Palaforge','Palaforge'],['Wooden Hammer','Marteau en bois'],['XP Berry','Baie d’XP'],['Cracked Stone','Pierre fissurée'],['Money Stone','Pierre d’argent'],['Roller','Rouleau'],['Iron Storage Upgrade','Amélioration de stockage en fer'],['Gold Storage Upgrade','Amélioration de stockage en or'],['Diamond Storage Upgrade','Amélioration de stockage en diamant'],['Amethyst Storage Upgrade','Amélioration de stockage en améthyste'],['Titanium Storage Upgrade','Amélioration de stockage en titane'],['Paladium Storage Upgrade','Amélioration de stockage en paladium'],['Green Paladium Storage Upgrade','Amélioration de stockage en paladium vert']
+  ];
+  const itemTranslationMap = new Map();
+  itemTranslationPairs.forEach(([en,fr])=>{itemTranslationMap.set(normalized(en),fr);itemTranslationMap.set(normalized(fr),en)});
+  const extraItemTranslationPairs = [
+    ['Harpagophytum','Harpagophytum'],['Dynamite','Dynamite'],['Pala Machine','Pala Machine'],['Pickaxe of God','Pioche of the God'],['Raw Titanium','Titane brut'],
+    ['Amethyst Spike','Spike Améthyste'],['Diamond Spike','Spike Diamond'],['Gold Spike','Spike Gold'],['Iron Spike','Spike Iron'],['Paladium Spike','Spike Paladium'],['Titanium Spike','Spike Titanium'],['Wood Spike','Spike Wood'],
+    ['Unclaim Finder Blue','Détecteur de territoire non revendiqué bleu'],['Unclaim Finder Orange','Détecteur de territoire non revendiqué orange'],['Unclaim Finder Red','Détecteur de territoire non revendiqué rouge'],['Unclaim Finder Green','Détecteur de territoire non revendiqué vert'],
+    ['Amethyst Builder’s Wand','Outil de construction en améthyste'],['Endium Builder’s Wand','Outil de construction en endium'],['Paladium Builder’s Wand','Outil de construction en paladium'],['Titanium Builder’s Wand','Outil de construction en titane'],
+    ['Raw Amethyst','Améthyste brute'],['Capture Sword','Épée de capture'],['Capture Stone','Pierre de capture'],['Mount Whistle','Sifflet de monture'],['Bandage','Bandage'],['Potion Launcher','Lance-potion'],["Warden's Whitelist",'Liste blanche du gardien'],
+    ['Amethyst Nugget','Pépite d’améthyste'],['Amethyst Fruit','Fruit d’améthyste'],['Titanium Fruit','Fruit de titane'],['Paladium Fruit','Fruit de paladium'],['Endium Fruit','Fruit d’endium'],['Chervil Seed','Graine de chervil'],['Paladium Seed','Graine de paladium'],['Green Paladium Seed','Graine de paladium vert'],
+    ['Amethyst Hammer','Hammer en améthyste'],['Titanium Hammer','Hammer en titane'],['Paladium Hammer','Hammer en paladium'],['Endium Hammer','Hammer en endium'],['Small Paladium Ring','Small Ring en paladium'],['Medium Paladium Ring','Medium Ring en paladium'],['Big Paladium Ring','Big Ring en paladium'],['Small Endium Ring','Small Ring en endium'],['Medium Endium Ring','Medium Ring en endium'],['Big Endium Ring','Big Ring en endium'],
+    ['Legendary Stone of Teleportation','Pierre légendaire de téléportation'],['Legendary Stone of Job','Pierre légendaire de métier'],['Modified Wooden Chest','Coffre en bois moddé'],['Amethyst Chest','Coffre en améthyste'],['Titanium Chest','Coffre en titane'],['Paladium Chest','Coffre en paladium'],['Green Paladium Chest','Coffre en paladium vert'],['Endium Chest','Coffre en endium'],['Drawer','Drawer'],['Drawer Upgrade','Amélioration de drawer'],
+    ['Iron Storage Upgrade','Amélioration stockage fer'],['Gold Storage Upgrade','Amélioration stockage or'],['Diamond Storage Upgrade','Amélioration stockage diamant'],['Amethyst Storage Upgrade','Amélioration stockage améthyste'],['Titanium Storage Upgrade','Amélioration stockage titane'],['Paladium Storage Upgrade','Amélioration stockage paladium'],['Green Paladium Storage Upgrade','Amélioration stockage paladium vert'],['Paladium Dynamite','Dynamite en paladium'],['Compressed Amethyst','Améthyste compressée'],['Compressed Titanium','Titane compressé'],['Compressed Paladium','Paladium compressé'],['Compressed Green Paladium','Paladium vert compressé'],['Compressed Endium','Endium compressé'],
+    ['Drawer Upgrade Amethyst','Amélioration de tiroir en améthyste'],['Drawer Upgrade Titanium','Amélioration de tiroir en titane'],['Drawer Upgrade Paladium','Amélioration de tiroir en paladium'],['Drawer Upgrade Green Paladium','Amélioration de tiroir en paladium vert'],['Small Paladium Ring','Ring Paladium (Small)'],['Medium Paladium Ring','Ring Paladium (Medium)'],['Big Paladium Ring','Ring Paladium (Big)'],['Small Endium Ring','Ring Endium (Small)'],['Medium Endium Ring','Ring Endium (Medium)'],['Big Endium Ring','Ring Endium (Big)'],['Amethyst Stick','Stick en améthyste'],['Titanium Stick','Stick en titane'],['Paladium Stick','Stick en paladium'],['Endium Stick','Stick en endium'],
+    ['Miner XP 1000','Expérience mineur 1000xp'],['Farmer XP 1000','Expérience farmeur 1000xp'],['Hunter XP 1000','Expérience chasseur 1000xp'],['Alchemist XP 1000','Expérience alchimiste 1000xp'],['Miner XP Bottle 1000','Bottle Miner 1000xp'],['Farmer XP Bottle 1000','Bottle Farmer 1000xp'],['Hunter XP Bottle 1000','Bottle Hunter 1000xp'],['Alchemist XP Bottle 1000','Bottle Alchimiste 1000xp']
+  ];
+  extraItemTranslationPairs.forEach(([en,fr])=>{itemTranslationMap.set(normalized(en),fr);itemTranslationMap.set(normalized(fr),en)});
   const paladiumBedrockItems = [
     'Minerai d’améthyste','Amethyst Ore','Éclat d’améthyste','Amethyst Shard','Amethyst Block','Amethyst Block de géode','Améthyste compressée','Amethyst Compressed','Amethyst Seed','Chervil Seed','Chervil','Kiwanos','Eggplant','Orangblossom','Fruit d’améthyste','Fruit de titane','Fruit de paladium','Fruit d’endium',
     'Minerai de titane','Titanium Ore','Lingot de titane','Titanium Ingot','Bloc de titane','Titanium Block','Titane compressé','Titanium Compressed','Graine de chervil',
     'Minerai de paladium','Paladium Ore','Lingot de paladium','Paladium Ingot','Bloc de paladium','Paladium Block','Paladium compressé','Paladium Compressed','Particule de paladium','Paladium Particle','Cœur en paladium','Paladium Core','Graine de paladium',
-    'Minerai de paladium vert','Green Paladium Ore','Lingot de paladium vert','Green Palladium Ingot','Bloc de paladium vert','Green Paladium Block','Paladium vert compressé','Green Paladium Compressed','Graine de paladium vert',
+    'Minerai de paladium vert','Green Paladium Ore','Lingot de paladium vert','Green Paladium Ingot','Bloc de paladium vert','Green Paladium Block','Paladium vert compressé','Green Paladium Compressed','Graine de paladium vert',
     'Minerai de findium','Findium Ore','Lingot de findium','Findium Ingot','Bloc de findium','Findium Block','Findium compressé','Findium Compressed',
     'Fragment d’endium','Endium Fragment','Pépite d’endium','Endium Nugget','Lingot d’endium','Endium Ingot','Bloc d’endium','Endium Block','Endium compressé','Endium Compressed',
     'Épée en améthyste','Amethyst Sword','Épée en titane','Titanium Sword','Épée en paladium','Paladium Sword','Épée en paladium vert','Green Paladium Sword','Épée en endium','Endium Sword',
@@ -136,7 +182,7 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
     'Casque en paladium vert','Green Paladium Helmet','Plastron en paladium vert','Green Paladium Chestplate','Jambières en paladium vert','Green Paladium Leggings','Bottes en paladium vert','Green Paladium Boots',
     'Casque en endium','Endium Helmet','Plastron en endium','Endium Chestplate','Jambières en endium','Endium Leggings','Bottes en endium','Endium Boots','Casque prototype','Plastron prototype','Jambières prototype','Bottes prototype','Plastron de saut','Jump Chestplate','Jambières de voyage','Travel Leggings','Bottes de voyage','Travel Boots',
     'Pioche en améthyste','Pelle en améthyste','Hache en améthyste','Houe en améthyste','Pioche en titane','Pelle en titane','Hache en titane','Houe en titane','Pioche en paladium','Pelle en paladium','Hache en paladium','Houe en paladium','Pioche en paladium vert','Pelle en paladium vert','Hache en paladium vert','Houe en paladium vert','Pioche en endium','Pelle en endium','Hache en endium','Houe en endium','Pioche of the God','Pickaxe of God','Hammer en améthyste','Hammer en titane','Hammer en paladium','Hammer en endium','Excavatrice en améthyste','Excavatrice en endium',
-    'Unclaim Finder Vert','Unclaim Finder Orange','Unclaim Finder Rouge','Unclaim Finder Bleu','Small Ring en paladium','Medium Ring en paladium','Big Ring en paladium','Small Ring en endium','Medium Ring en endium','Big Ring en endium','Ring Paladium (Small)','Ring Paladium (Medium)','Ring Paladium (Big)','Ring Endium (Small)','Ring Endium (Medium)','Ring Endium (Big)',
+    'Détecteur de territoire non revendiqué vert','Unclaim Finder Orange','Détecteur de territoire non revendiqué orange','Détecteur de territoire non revendiqué rouge','Détecteur de territoire non revendiqué bleu','Small Ring en paladium','Medium Ring en paladium','Big Ring en paladium','Small Ring en endium','Medium Ring en endium','Big Ring en endium','Ring Paladium (Small)','Ring Paladium (Medium)','Ring Paladium (Big)','Ring Endium (Small)','Ring Endium (Medium)','Ring Endium (Big)',
     'Heal Stick','Speed Stick','Strength Stick','Jump Stick','Stick of God','Damage Stick','Hyper Jump Stick','Stick en améthyste','Stick en titane','Stick en paladium','Stick en endium','Orbe de régénération','Heal Orb','Orbe de vitesse','Speed Orb','Orbe de force','Strength Orb','Orbe de saut','Jump Orb','Slimepad','Pommadium','Palapple','Aile','Wing','Hang Glider',
     'Pierre légendaire aléatoire','Random Legendary Stone','Pierre légendaire de téléportation','Legendary Stone of Teleportation','Pierre légendaire d’invisibilité','Legendary Stone of Invisibility','Pierre légendaire de fortune','Legendary Stone of Fortune','Pierre légendaire de pouvoir','Legendary Stone of Power','Pierre légendaire de métier','Legend Array Stone of Job','Pierre légendaire de chaos','Legendary Stone of Chaos',
     'Palamachine','Grinder','Bloc du Grinder','Bordure de Grinder','Morceau de Grinder','Table de Grinder','Robinier de Grinder','Cobblebreaker','Crusher','Totem de fertilité','Totem of Fertility','Palaforge',
@@ -152,6 +198,8 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
   let operationPage=0;
   let bedrockItems=[];
   let bedrockIds=new Map();
+  let bedrockTranslationCache={};
+  let itemCatalogCache=null;
   const seed = {
     version: 4,
     defaultTax: 3.5,
@@ -166,11 +214,41 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
     if(type==='number'){input.min='0';input.step='any'}
     input.value=value ?? ''; if(label) input.setAttribute('aria-label',label); return input;
   }
-  const normalized = s => String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLocaleLowerCase('fr');
+  const itemAliases = new Map([
+    ['dynamite endium','Endium Dynamite'],['unclaimed finder bleu','Détecteur de territoire non revendiqué bleu'],['unclaimed finder rouge','Détecteur de territoire non revendiqué rouge'],['unclaimed finder vert','Détecteur de territoire non revendiqué vert'],['unclaimed finder orange','Unclaim Finder Orange'],
+    ['unclaim finder bleu','Détecteur de territoire non revendiqué bleu'],['unclaim finder rouge','Détecteur de territoire non revendiqué rouge'],['unclaim finder vert','Détecteur de territoire non revendiqué vert'],['orbe de regeneration','Orbe de soin'],['spike amethyste','Amethyst Spike'],['spike diamond','Diamond Spike'],['spike gold','Gold Spike'],['spike iron','Iron Spike'],['spike paladium','Paladium Spike'],['spike titanium','Titanium Spike'],['spike wood','Wood Spike'],['ring paladium (small)','Small Paladium Ring'],['ring paladium (medium)','Medium Paladium Ring'],['ring paladium (big)','Big Paladium Ring'],['ring endium (small)','Small Endium Ring'],['ring endium (medium)','Medium Endium Ring'],['ring endium (big)','Big Endium Ring'],['silver stone','Money Stone'],['orbe de regeneration','Orbe de soin'],['compressed amethyst','Amethyst Compressed'],['compressed titanium','Titanium Compressed'],['compressed paladium','Paladium Compressed'],['compressed green paladium','Green Paladium Compressed'],['compressed endium','Endium Compressed']
+  ]);
+  const itemNameWords = new Set(`acacia allay amethyst ancient andesite apple armor arrow axolotl azalea bamboo banner barrel basalt beacon bed beetroot bell birch black blackstone blaze boat bone book bookshelf bow bowl bread breeze brick brown brush bucket bundle cactus cake calcite camel candle carrot cartography carved cat cauldron chain chest chestplate cherry chicken chipped chiseled chorus clay clock coal coarse cobbled cobblestone cocoa color comparator compass composter conduit cooked cookie copper coral cow cracked crafting cream crimson crossbow crying cut cyan dark dead detector diamond diorite dirt dispenser dragon dried dripstone dropper drowned dune dye egg elytra emerald enchanting end ender endstone evoker eye feather fence fermented fern firework fish fishing fletching flint flower fox froglight frog furnace ghast gilded glass glasspane glistering glowstone goat gold golden granite grass gravel gray green grindstone guardian gunpowder hanging hardened hay heart heavy hoglin honey hopper horn horse husk ice infested ink iron item itemframe jackolantern jukebox jungle ladder lantern lapis lead leather leggings lever light lightning lime lingering lit lectern lever light gray lightblue lightgray lily lime lingering lime lodestone loom magenta magma mangrove map melon milk minecart mining moss mossy mud mushroom mutton mycelium name nether netherite netherrack note oak observer obsidian orange oxidized packed painting panda paper parrot pearl peony phantom phial pickaxe pink piston pitch planks podzol pointed polished poppy pork potato powder powered prismarine prismarine pumpkin purple quartz rabbit rail raw red redstone repeater resin respawn rib ride saddle sandstone scaffolding sculk sea lantern seed seagrass sherd shield shroomlight shulker sign silver skeleton skull slab slime smithing smoker smooth sniffer snow soul soulsoil spawn spider splash spruce spyglass stained stairs stick sticky stone stonecutter stonebrick stonebricks storage stray string stripped structure sugar suspicious sweet sword table tall tamed terracotta tinted tipped tnt torch totem trapdoor trial trident tripwire tropical tube tuff turtle twisting warped warped wart water waxed weathered wheat white wild wind witch wither wolf wood wooden wool writable written yellow zombie`.split(' '));
+  function splitJoinedItemWord(raw){
+    const token=String(raw||'');
+    if(!/^[A-Za-z]+$/.test(token))return token;
+    const lower=token.toLowerCase();
+    if(itemNameWords.has(lower))return token;
+    const best=Array(lower.length+1).fill(null);best[lower.length]={parts:[],score:0};
+    for(let start=lower.length-1;start>=0;start--){
+      for(let end=lower.length;end>start;end--){
+        const part=lower.slice(start,end),tail=best[end];
+        if(!tail||!itemNameWords.has(part))continue;
+        const score=part.length*part.length+tail.score;
+        if(!best[start]||score>best[start].score)best[start]={parts:[part,...tail.parts],score};
+      }
+    }
+    if(!best[0]||best[0].parts.length<2)return token;
+    return best[0].parts.map(part=>part.charAt(0).toUpperCase()+part.slice(1)).join(' ');
+  }
+  const canonicalItemName = s => {
+    const raw=String(s||'').replace(/([a-z0-9])([A-Z])/g,'$1 $2').replace(/_/g,' ').replace(/palladium/gi,'paladium').replace(/\s+/g,' ').trim();
+    const item=raw.split(' ').map(splitJoinedItemWord).join(' '),key=normalized(item);
+    return itemAliases.get(key)||item;
+  };
+  const normalizeStoredItemLabel = s => {const item=canonicalItemName(s);return normalized(item)==='wood helmet'?'Hood Helmet':normalized(item)==='arpagophytum'?'Harpagophytum':item};
   function allItems(){
+    if(itemCatalogCache)return itemCatalogCache;
     const unique=new Map();
-    [...catalogue,...paladiumBedrockItems,...bedrockItems,...customItems].forEach(item=>{const key=normalized(item);if(!unique.has(key))unique.set(key,item)});
-    return [...unique.values()].sort((a,b)=>a.localeCompare(b,'fr'))
+    const add=item=>{const canonical=canonicalItemName(item);if(!canonical)return;const key=normalized(canonical);if(!unique.has(key))unique.set(key,canonical);const translated=itemTranslationMap.get(key);if(translated){const other=canonicalItemName(translated),otherKey=normalized(other);if(!unique.has(otherKey))unique.set(otherKey,other)}};
+    [...catalogue,...additionalBilingualItems,...paladiumBedrockItems,...bedrockItems,...customItems].forEach(add);
+    itemCatalogCache=[...unique.values()].sort((a,b)=>a.localeCompare(b,'fr'));
+    return itemCatalogCache
   }
   function itemIdFromMarkdown(line){
     const cells=line.trim().replace(/^\|/,'').replace(/\|$/,'').split('|');
@@ -180,18 +258,41 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
     const id=(linked?linked[1]:raw).replace(/[`*_]/g,'').trim();
     return /^[a-z0-9_]+$/i.test(id)&&/^-?\d+$/.test(cells[1].trim())?id.toLowerCase():'';
   }
+  function bedrockFallbackName(id){return canonicalItemName(id.split('_').filter(Boolean).map(part=>part.charAt(0).toUpperCase()+part.slice(1)).join(' '))}
   function setBedrockItems(ids){
     bedrockIds=new Map();
-    bedrockItems=[...new Set(ids)].map(id=>{
-      const label=id.split('_').filter(Boolean).map(part=>part.charAt(0).toUpperCase()+part.slice(1)).join(' ');
-      bedrockIds.set(label,id);return label;
+    bedrockItems=[];
+    const labelsSeen=new Set();
+    [...new Set(ids)].forEach(rawId=>{
+      const id=String(rawId).replace(/^minecraft:/,'').toLowerCase(),pair=bedrockTranslationCache[id]||{};
+      const en=canonicalItemName(pair.en||bedrockFallbackName(id));
+      const fr=canonicalItemName(pair.fr||itemTranslationMap.get(normalized(en))||en);
+      [en,fr].forEach(label=>{const key=normalized(label);if(!labelsSeen.has(key)){labelsSeen.add(key);bedrockItems.push(label)}bedrockIds.set(label,id)});
     });
+    itemCatalogCache=null;
+  }
+  async function loadBedrockTranslations(ids){
+    try{const saved=JSON.parse(localStorage.getItem(BEDROCK_TRANSLATION_CACHE_KEY)||'{}');if(saved&&typeof saved==='object')bedrockTranslationCache=saved}catch{}
+    const missing=[...new Set(ids.map(id=>String(id).replace(/^minecraft:/,'').toLowerCase()))].filter(id=>!bedrockTranslationCache[id]?.en||!bedrockTranslationCache[id]?.fr);
+    if(!missing.length)return;
+    try{
+      const [enResponse,frResponse]=await Promise.all([fetch(VANILLA_EN_NAMES_URL,{cache:'force-cache'}),fetch(VANILLA_FR_NAMES_URL,{cache:'force-cache'})]);
+      if(!enResponse.ok||!frResponse.ok)throw new Error('Traductions vanilla indisponibles');
+      const [enNames,frNames]=await Promise.all([enResponse.json(),frResponse.json()]);
+      for(const id of missing){
+        const keys=[`item.minecraft.${id}`,`block.minecraft.${id}`,`item.${id}`,`block.${id}`];
+        const en=keys.map(key=>enNames[key]).find(value=>typeof value==='string'&&value.trim());
+        const fr=keys.map(key=>frNames[key]).find(value=>typeof value==='string'&&value.trim());
+        if(en||fr)bedrockTranslationCache[id]={...(bedrockTranslationCache[id]||{}),...(en?{en}:{}),...(fr?{fr}:{})};
+      }
+      try{localStorage.setItem(BEDROCK_TRANSLATION_CACHE_KEY,JSON.stringify(bedrockTranslationCache))}catch{}
+    }catch{}
   }
   async function loadBedrockItems(){
     const status=$('#catalogStatus');
     try{
       const cached=JSON.parse(localStorage.getItem(BEDROCK_CACHE_KEY)||'[]');
-      if(Array.isArray(cached)&&cached.length>0){setBedrockItems(cached);status.textContent=`Catalogue Paladium Bedrock et Minecraft Bedrock chargés (${paladiumBedrockItems.length} entrées Paladium, ${bedrockItems.length} objets vanilla en cache).`;}
+      if(Array.isArray(cached)&&cached.length>0){await loadBedrockTranslations(cached);setBedrockItems(cached);status.textContent=`Catalogue Paladium Bedrock et Minecraft Bedrock chargés (${paladiumBedrockItems.length} entrées Paladium, ${new Set(cached).size} objets vanilla en cache).`;}
     }catch{}
     try{
       const response=await fetch(BEDROCK_ITEMS_URL,{cache:'no-cache'});
@@ -199,6 +300,7 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
       const markdown=await response.text();
       const ids=[...new Set(markdown.split(/\r?\n/).map(itemIdFromMarkdown).filter(Boolean))];
       if(ids.length<500)throw new Error('Liste reçue incomplète');
+      await loadBedrockTranslations(ids);
       setBedrockItems(ids);
       try{localStorage.setItem(BEDROCK_CACHE_KEY,JSON.stringify(ids))}catch{}
       status.textContent=`Catalogue chargé : ${paladiumBedrockItems.length} entrées Paladium Bedrock, ${bedrockItems.length} objets Minecraft Bedrock, plus tes ajouts personnalisés.`;
@@ -218,12 +320,13 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
     menu.append(search,options);wrap.append(toggle,menu);
     function selectItem(name){wrap.dataset.value=name;label.textContent=name;menu.classList.add('hidden');search.value='';render('');saveAndCalc()}
     function render(query){
-      options.replaceChildren();const q=normalized(query);const found=allItems().filter(item=>!q||normalized(item).includes(q)||normalized(bedrockIds.get(item)||'').includes(q));
+      options.replaceChildren();const q=normalized(query),catalog=allItems();const found=catalog.filter(item=>{const id=bedrockIds.get(item)||'',vanillaXpAliases=id==='experience_bottle'?" bottle o' enchanting bottle o enchanting xp bottle experience bottle":'';return !q||normalized(item).includes(q)||normalized(id).replace(/_/g,' ').includes(q)||normalized(vanillaXpAliases).includes(q)});
       if(!found.length){const empty=document.createElement('div');empty.className='item-empty';empty.textContent='Aucun item correspondant.';options.append(empty)}
-      found.forEach(item=>{const b=document.createElement('button');b.type='button';b.textContent=item;b.addEventListener('click',()=>selectItem(item));options.append(b)});
-      if(q&&!allItems().some(item=>normalized(item)===q)){
+      found.slice(0,120).forEach(item=>{const b=document.createElement('button');b.type='button';b.textContent=item;b.addEventListener('click',()=>selectItem(item));options.append(b)});
+      if(found.length>120){const more=document.createElement('div');more.className='item-empty';more.textContent=`${found.length} résultats : affiche les 120 premiers, précise ta recherche.`;options.append(more)}
+      if(q&&!catalog.some(item=>normalized(item)===q)){
         const add=document.createElement('button');add.type='button';add.className='item-add';add.textContent=`＋ Ajouter « ${query.trim()} » au catalogue`;
-        add.addEventListener('click',()=>{const name=query.trim();if(!name)return;if(!allItems().some(item=>normalized(item)===normalized(name)))customItems.push(name);selectItem(name)});options.append(add)
+        add.addEventListener('click',()=>{const name=query.trim();if(!name)return;if(!allItems().some(item=>normalized(item)===normalized(name))){customItems.push(name);itemCatalogCache=null}selectItem(name)});options.append(add)
       }
     }
     toggle.addEventListener('click',()=>{const willOpen=menu.classList.contains('hidden');document.querySelectorAll('.item-menu').forEach(m=>m.classList.add('hidden'));menu.classList.toggle('hidden',!willOpen);if(willOpen){const box=toggle.getBoundingClientRect(),width=Math.min(360,window.innerWidth-24),top=Math.max(12,Math.min(box.bottom+5,window.innerHeight-320));menu.style.width=width+'px';menu.style.left=Math.max(12,Math.min(box.left,window.innerWidth-width-12))+'px';menu.style.top=top+'px';render('');search.focus()}});
@@ -250,7 +353,7 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
       const date=document.createElement('td');date.className='muted';date.textContent=entry.dateLabel||(entry.observedAt?new Date(entry.observedAt).toLocaleString('fr-FR'):'—');
       const action=document.createElement('td');
       if(isEditing){
-        const itemPicker=makePicker(entry.item);item.append(itemPicker);
+        const itemPicker=makePicker(normalizeStoredItemLabel(entry.item));item.append(itemPicker);
         const priceInput=field('observation-edit-price',entry.price,'number','Prix observé');priceInput.min='0';priceInput.step='any';price.append(priceInput);
         const source=document.createElement('div');source.className='muted foot';source.textContent=[entry.kind||'Observation joueur',entry.confidence?`Fiabilité : ${entry.confidence}`:''].filter(Boolean).join(' · ');
         const noteInput=field('observation-edit-note',entry.note||'','text','Note du joueur');noteInput.placeholder='Ajouter ou modifier une note…';detail.append(source,noteInput);
@@ -264,7 +367,7 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
         const cancel=document.createElement('button');cancel.type='button';cancel.className='remove';cancel.textContent='Annuler';cancel.addEventListener('click',()=>{editingObservationId=null;renderObservations()});
         action.append(save,cancel);
       }else{
-        item.textContent=entry.item;
+        item.textContent=normalizeStoredItemLabel(entry.item);
         price.textContent=entry.priceLabel||money(Number(entry.price));
         detail.textContent=[entry.kind||'Observation joueur',entry.confidence?`Fiabilité : ${entry.confidence}`:'',entry.note||''].filter(Boolean).join(' · ');
         const edit=document.createElement('button');edit.type='button';edit.textContent='Modifier';edit.addEventListener('click',()=>{editingObservationId=entry.id;renderObservations()});
@@ -285,8 +388,9 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
       const id=`estimate:${normalized(entry.item)}`;
       if(existing.has(id))return;
       const numericMatch=String(entry.value).match(/\d[\d ]*/),numericValue=numericMatch?Number(numericMatch[0].replace(/\s/g,''))||null:null;
-      observations.push({id,item:entry.item,price:numericValue,priceLabel:entry.value,kind:entry.item==='Lingot de palladium vert'?'Observation historique joueur':'Fair value estimée',confidence:entry.confidence,note:entry.note,dateLabel:'Repère historique'});
-      if(!allItems().some(item=>normalized(item)===normalized(entry.item)))customItems.push(entry.item);
+      const item=normalizeStoredItemLabel(entry.item);
+      observations.push({id,item,price:numericValue,priceLabel:entry.value,kind:normalized(item)==='lingot de paladium vert'?'Observation historique joueur':'Fair value estimée',confidence:entry.confidence,note:entry.note,dateLabel:'Repère historique'});
+      if(!allItems().some(existing=>normalized(existing)===normalized(item))){customItems.push(item);itemCatalogCache=null}
     });
     estimatesImported=true;
   }
@@ -306,35 +410,32 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
   }
   function makeRow(d={}) {
     const tr=document.createElement('tr');
-    let item=d.item??d.name??'';let lot=d.lot??'';
-    if(!allItems().some(i=>normalized(i)===normalized(item))&&item){customItems.push(item)}
+    let item=normalizeStoredItemLabel(d.item??d.name??'');let lot=d.lot??'';
+    if(!allItems().some(i=>normalized(i)===normalized(item))&&item){customItems.push(item);itemCatalogCache=null}
     const picker=makePicker(item);const lotInput=field('lot-note',lot,'text','Détail du lot ou enchantement');lotInput.placeholder='Lot / enchantement (facultatif)';
     const itemCell=document.createElement('td');itemCell.className='item-cell';itemCell.append(picker,lotInput);
-    const partial=document.createElement('div');partial.className='partial-fields';partial.hidden=true;
-    const soldQty=field('num sold-qty',d.soldQty,'number','Quantité vendue');soldQty.min='0';soldQty.placeholder='Qté vendue';
-    const commitPartial=document.createElement('button');commitPartial.type='button';commitPartial.className='commit-partial';commitPartial.textContent='Enregistrer la vente partielle';
-    const partialHint=document.createElement('p');partialHint.className='partial-hint';partialHint.textContent='Reste automatique : —';
-    partial.append(soldQty,commitPartial,partialHint);itemCell.append(partial);
     const state=document.createElement('select');state.className='operation-state';
-    ['En stock','En vente','Ventes partielles','Vendu','Invendu expiré'].forEach(label=>{const o=document.createElement('option');o.value=label;o.textContent=label;state.append(o)});
+    ['En stock','En vente','Vendu','Invendu expiré'].forEach(label=>{const o=document.createElement('option');o.value=label;o.textContent=label;state.append(o)});
     state.value=d.state || 'En stock';
-    partial.hidden=state.value!=='Ventes partielles';
     const include=document.createElement('input');include.type='checkbox';include.checked=d.include!==false;include.setAttribute('aria-label','Inclure cette ligne au bilan');
     const listedQty=field('num listed-qty',d.listedQty!==undefined?d.listedQty:d.q,'number','Quantité mise en vente');listedQty.min='0';listedQty.placeholder='Qté listée';
     const cells=[field('num q',d.q,'number','Quantité achetée'),field('num buy',d.buy,'number','Prix d’achat par unité'),field('num sell',d.sell,'number','Prix de vente par unité'),state,field('num rate',d.taxRate,'number','Taxe en pourcentage'),field('num paid',d.taxPaid,'number','Taxe réellement payée')];
     cells[5].dataset.manual=d.taxPaid!==undefined&&d.taxPaid!==null&&d.taxPaid!==''?'true':'false';
-    cells[5].dataset.estimated=d.taxEstimated===true||((state.value==='En vente'||state.value==='Ventes partielles')&&(d.taxPaid===undefined||d.taxPaid===null||d.taxPaid===''))?'true':'false';
+    cells[5].dataset.estimated=d.taxEstimated===true||(state.value==='En vente'&&(d.taxPaid===undefined||d.taxPaid===null||d.taxPaid===''))?'true':'false';
     cells[5].placeholder='Automatique';
     const detailPanel=document.createElement('details');detailPanel.className='row-details';
     const detailSummary=document.createElement('summary');detailSummary.textContent='Quantité listée, taxe et options';detailPanel.append(detailSummary);
     const detailGrid=document.createElement('div');detailGrid.className='row-detail-grid';
     [['Qté de cette annonce',listedQty],['Taxe %',cells[4]],['Taxe déjà payée',cells[5]]].forEach(([label,control])=>{const wrap=document.createElement('label');wrap.className='detail-field';wrap.textContent=label;wrap.append(control);detailGrid.append(wrap)});
-    const breakEven=document.createElement('span');breakEven.className='detail-field break-even-wrap';breakEven.innerHTML='Seuil d’équilibre / unité';
+    const breakEven=document.createElement('span');breakEven.className='detail-field break-even-wrap';breakEven.innerHTML='Prix minimum / unité (taxes couvertes)';
     const beValue=document.createElement('strong');beValue.className='money breakEven';beValue.textContent='—';breakEven.append(beValue);detailGrid.append(breakEven);
     const includeLabel=document.createElement('label');includeLabel.className='detail-include';includeLabel.append(include,document.createTextNode('Inclure au bilan'));detailGrid.append(includeLabel);
     const historyBox=document.createElement('div');historyBox.className='listing-history';detailPanel.append(detailGrid,historyBox);itemCell.append(detailPanel);
-    let listingHistory=Array.isArray(d.listingHistory)?d.listingHistory:[];tr._listingHistory=listingHistory;tr._stockTaxCarry=Number(d.stockTaxCarry)||0;tr._listingCarry=Number(d.listingCarry)||0;
-    const renderListingHistory=()=>{historyBox.replaceChildren();if(!listingHistory.length)return;const title=document.createElement('strong');title.textContent='Historique des annonces';historyBox.append(title);listingHistory.forEach((listing,index)=>{const line=document.createElement('p');line.textContent=`#${index+1} · ${listing.listedQty} listée(s), ${listing.soldQty||0} vendue(s) · taxe ${money(Number(listing.taxPaid)||0)}${listing.taxCarry?` · frais antérieurs ${money(Number(listing.taxCarry)||0)}`:''} · ${listing.expired?'expirée':listing.returned?'reliquat remis en stock':'vendue'}${listing.closedAt?` · ${new Date(listing.closedAt).toLocaleDateString('fr-FR')}`:''}`;historyBox.append(line)})};renderListingHistory();
+    let listingHistory=Array.isArray(d.listingHistory)?d.listingHistory:[];tr._listingHistory=listingHistory;tr._listingOrigin=d.listingOrigin||null;tr._stockTaxCarry=Number(d.stockTaxCarry)||0;tr._listingCarry=Number(d.listingCarry)||0;
+    const originBox=document.createElement('div');originBox.className='listing-origin';originBox.hidden=!d.listingOrigin;
+    if(d.listingOrigin){const origin=d.listingOrigin;originBox.textContent=`Stock issu de l’annonce expirée du ${origin.expiredAt?new Date(origin.expiredAt).toLocaleString('fr-FR'):'date inconnue'} · ${origin.remainingQty} unité(s) remises en stock sur ${origin.listedQty} · ${origin.soldQty} vendue(s) · prix d’annonce ${money(Number(origin.listingPrice)||0)} · taxe déjà payée ${money(Number(origin.taxPaid)||0)} (non recalculée)`}
+    detailPanel.append(originBox);
+    const renderListingHistory=()=>{historyBox.replaceChildren();if(!listingHistory.length)return;const title=document.createElement('strong');title.textContent='Historique des annonces — champs corrigibles';historyBox.append(title);listingHistory.forEach((listing,index)=>{const line=document.createElement('p');line.textContent=`#${index+1} · annonce de ${listing.listedQty} · ${listing.expired?'EXPIRÉE':'clôturée'}${listing.closedAt?` · ${new Date(listing.closedAt).toLocaleDateString('fr-FR')}`:''}`;historyBox.append(line);const controls=document.createElement('div');controls.className='history-corrections';const editable=[['Qté vendue','soldQty'],['Prix vendu / unité','soldPrice'],['Taxe payée','taxPaid'],['Taxe antérieure','taxCarry']];editable.forEach(([label,key])=>{const wrap=document.createElement('label');wrap.textContent=label;const input=field('history-correction',listing[key]??0,'number',label);input.min='0';input.step='any';wrap.append(input);controls.append(wrap);input.addEventListener('change',()=>{let value=Number(input.value);if(!Number.isFinite(value)||value<0)value=0;if(key==='soldQty')value=Math.min(Number(listing.listedQty)||0,Math.floor(value));listing[key]=value;if(key==='soldQty'||key==='soldPrice'){listing.sales=value===0&&key==='soldQty'?[]:[{qty:Number(listing.soldQty)||0,price:Number(listing.soldPrice)||0}]}listing.taxBasis=(Number(listing.taxPaid)||0)+(Number(listing.taxCarry)||0);input.value=String(value);saveAndCalc()})});historyBox.append(controls)})};renderListingHistory();
     tr.append(itemCell);
     [cells[0],cells[1],cells[2],cells[3]].forEach(el=>{const td=document.createElement('td');td.append(el);tr.append(td)});
     const statusBadge=document.createElement('span');statusBadge.className='row-status-badge';
@@ -347,59 +448,66 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
     [...cells.slice(0,5),include,lotInput,listedQty].forEach(el=>el.addEventListener('input',saveAndCalc));
     cells[5].addEventListener('input',()=>{cells[5].dataset.manual=cells[5].value.trim()===''?'false':'true';cells[5].dataset.estimated='false';saveAndCalc()});
     let previousState=state.value;
+    const expiryDialog=$('#listingExpiryDialog'),remainingInput=$('#listingExpiryRemaining'),expiryError=$('#listingExpiryError');
+    const cancelListingExpiry=()=>{if(expiryDialog.open)expiryDialog.close();state.value=previousState;pendingListingExpiry=null;expiryError.textContent='';saveAndCalc()};
+    const saveListingExpiry=event=>{
+      if(!expiryDialog.open)return;event.preventDefault();
+      const count=Number(listedQty.value)||0,totalQty=Number(cells[0].value)||0,remaining=Number(remainingInput.value),price=numeric(cells[2]);
+      if(!Number.isInteger(remaining)||remaining<0||remaining>count||!count||count>totalQty||((count-remaining)>0&&price===null)){
+        expiryError.textContent=`Saisis un nombre entier entre 0 et ${Math.max(0,Math.min(count,totalQty))} et vérifie le prix de vente.`;remainingInput.focus();return;
+      }
+      const unitsSold=count-remaining,fee=cells[5].dataset.manual==='true'?(Number(cells[5].value)||0):count*(price||0)*((numeric(cells[4])??(Number($('#defaultTax').value)||0))/100);
+      const carry=Number(tr._listingCarry)||0,qtyOnClosedOperation=totalQty-remaining;
+      listingHistory.push({listedQty:count,soldQty:unitsSold,soldPrice:price||0,taxPaid:fee,taxCarry:carry,taxBasis:fee+carry,taxEstimated:cells[5].dataset.estimated==='true',taxRate:numeric(cells[4])??(Number($('#defaultTax').value)||0),expired:true,returned:remaining>0,closedAt:new Date().toISOString(),sales:unitsSold?[{qty:unitsSold,price:price||0}]:[]});
+      // Keep the expired listing as a closed record; the remaining stock lives in a fresh row.
+      cells[0].value=String(qtyOnClosedOperation);state.value='Invendu expiré';previousState=state.value;
+      listedQty.value='';cells[5].value='';cells[5].dataset.manual='false';cells[5].dataset.estimated='false';tr._listingCarry=0;tr._stockTaxCarry=0;renderListingHistory();
+      if(remaining>0)makeRow({item:picker.dataset.value,lot:lotInput.value,q:remaining,buy:Number(cells[1].value)||0,state:'En stock',taxRate:numeric(cells[4]),include:include.checked,listingOrigin:{expiredAt:listingHistory[listingHistory.length-1].closedAt,listedQty:count,soldQty:unitsSold,remainingQty:remaining,listingPrice:price||0,taxPaid:fee+carry}});
+      expiryDialog.close();expiryError.textContent='';pendingListingExpiry=null;operationPage=0;saveAndCalc();
+    };
     state.addEventListener('change',()=>{
-      if((state.value==='En vente'||state.value==='Ventes partielles')&&previousState==='En stock'){
+      if(state.value==='Invendu expiré'&&previousState==='En vente'){
+        const count=Number(listedQty.value)||0,totalQty=Number(cells[0].value)||0;
+        if(!count||count>totalQty){expiryError.textContent='Vérifie la quantité mise en vente avant de clôturer l’annonce.';state.value=previousState;saveAndCalc();return}
+        $('#listingExpiryDescription').textContent=`${picker.dataset.value||'Cet item'} · ${count} unité(s) dans l’annonce. Indique combien restent en stock ; le reste sera comptabilisé comme vendu au prix enregistré. La taxe de cette annonce est déjà payée.`;
+        remainingInput.value='';remainingInput.min='0';remainingInput.max=String(count);expiryError.textContent='';state.value=previousState;pendingListingExpiry={cancel:cancelListingExpiry,submit:saveListingExpiry};expiryDialog.showModal();remainingInput.focus();return;
+      }
+      if(state.value==='Invendu expiré'&&previousState!=='En vente'){state.value=previousState;saveAndCalc();return}
+      if(state.value==='En vente'&&previousState==='En stock'){
         const alreadySold=listingHistory.reduce((sum,listing)=>sum+(Number(listing.soldQty)||0),0);
         listedQty.value=Math.max(0,(Number(cells[0].value)||0)-alreadySold);
-        tr._listingCarry=tr._stockTaxCarry;tr._stockTaxCarry=0;
-        cells[4].value=$('#defaultTax').value;
-        soldQty.value='';cells[5].value='';cells[5].dataset.manual='false';
+        tr._listingCarry=tr._stockTaxCarry;tr._stockTaxCarry=0;cells[4].value=$('#defaultTax').value;cells[5].value='';cells[5].dataset.manual='false';
         const initialFee=Number(listedQty.value)*(Number(cells[2].value)||0)*((numeric(cells[4])??(Number($('#defaultTax').value)||0))/100);
         if(initialFee>0){cells[5].value=String(Math.round(initialFee*100)/100);cells[5].dataset.manual='true';cells[5].dataset.estimated='true'}
       }
-      if(state.value==='Ventes partielles'&&cells[5].dataset.manual!=='true'&&cells[5].value.trim()!==''){cells[5].dataset.manual='true';cells[5].dataset.estimated='true'}
-      if(state.value==='Invendu expiré'&&(previousState==='En vente'||previousState==='Ventes partielles')){
-        const listingCount=Number(listedQty.value)||0,partialSold=previousState==='Ventes partielles'?Math.max(0,Math.min(listingCount,Number(soldQty.value)||0)):0;
-        const gross=listingCount*(Number(cells[2].value)||0),fee=cells[5].dataset.manual==='true'?(Number(cells[5].value)||0):gross*((numeric(cells[4])??(Number($('#defaultTax').value)||0))/100);
-        const taxCarry=Number(tr._listingCarry)||0;
-        listingHistory.push({listedQty:listingCount,soldQty:partialSold,soldPrice:Number(cells[2].value)||0,taxPaid:fee,taxCarry,taxBasis:fee+taxCarry,taxEstimated:cells[5].dataset.estimated==='true',taxRate:numeric(cells[4])??(Number($('#defaultTax').value)||0),expired:true,closedAt:new Date().toISOString()});
-        renderListingHistory();state.value='En stock';listedQty.value='';soldQty.value='';cells[5].value='';cells[5].dataset.manual='false';cells[5].dataset.estimated='false';tr._listingCarry=0;tr._stockTaxCarry=0;
-      } else if(state.value==='Vendu'&&(previousState==='En vente'||previousState==='Ventes partielles')){
-        const listingCount=Number(listedQty.value)||0,previouslySold=previousState==='Ventes partielles'?Math.max(0,Math.min(listingCount,Number(soldQty.value)||0)):0,remaining=Math.max(0,listingCount-previouslySold);
-        const gross=listingCount*(Number(cells[2].value)||0),fee=cells[5].dataset.manual==='true'?(Number(cells[5].value)||0):gross*((numeric(cells[4])??(Number($('#defaultTax').value)||0))/100);
-        const taxCarry=Number(tr._listingCarry)||0;
-        const listingPrice=Number(cells[2].value)||0;
-        listingHistory.push({listedQty:listingCount,soldQty:listingCount,soldPrice:listingPrice,taxPaid:fee,taxCarry,taxBasis:fee+taxCarry,taxEstimated:cells[5].dataset.estimated==='true',taxRate:numeric(cells[4])??(Number($('#defaultTax').value)||0),expired:false,closedAt:new Date().toISOString(),sales:[...(previouslySold?[{qty:previouslySold,price:listingPrice}]:[]),...(remaining?[{qty:remaining,price:listingPrice}]:[])]});
-        listedQty.value='';soldQty.value='';renderListingHistory();tr._listingCarry=0;tr._stockTaxCarry=0;
+      if(state.value==='Vendu'&&previousState==='En vente'){
+        const listingCount=Number(listedQty.value)||0,gross=listingCount*(Number(cells[2].value)||0),fee=cells[5].dataset.manual==='true'?(Number(cells[5].value)||0):gross*((numeric(cells[4])??(Number($('#defaultTax').value)||0))/100),taxCarry=Number(tr._listingCarry)||0,listingPrice=Number(cells[2].value)||0;
+        listingHistory.push({listedQty:listingCount,soldQty:listingCount,soldPrice:listingPrice,taxPaid:fee,taxCarry,taxBasis:fee+taxCarry,taxEstimated:cells[5].dataset.estimated==='true',taxRate:numeric(cells[4])??(Number($('#defaultTax').value)||0),expired:false,closedAt:new Date().toISOString(),sales:listingCount?[{qty:listingCount,price:listingPrice}]:[]});
+        listedQty.value='';renderListingHistory();tr._listingCarry=0;tr._stockTaxCarry=0;
       }
-      partial.hidden=state.value!=='Ventes partielles';previousState=state.value;saveAndCalc()
-    });
-    soldQty.addEventListener('input',saveAndCalc);
-    commitPartial.addEventListener('click',()=>{
-      const count=Number(listedQty.value)||0,units=Math.max(0,Math.min(count,Number(soldQty.value)||0)),price=Number(cells[2].value)||0;
-      if(!count||!units||!price){soldQty.focus();return}
-      const fee=cells[5].dataset.manual==='true'?(Number(cells[5].value)||0):count*price*((numeric(cells[4])??(Number($('#defaultTax').value)||0))/100);
-      const carry=Number(tr._listingCarry)||0,totalBasis=carry+fee,remaining=Math.max(0,count-units),carryOut=count?totalBasis*remaining/count:0;
-      listingHistory.push({listedQty:count,soldQty:units,soldPrice:price,taxPaid:fee,taxCarry:carry,taxBasis:totalBasis,carryOut,taxEstimated:cells[5].dataset.estimated==='true',taxRate:numeric(cells[4])??(Number($('#defaultTax').value)||0),expired:false,returned:true,closedAt:new Date().toISOString(),sales:[{qty:units,price}]});
-      tr._stockTaxCarry=carryOut;tr._listingCarry=0;renderListingHistory();state.value='En stock';previousState='En stock';listedQty.value='';soldQty.value='';cells[5].value='';cells[5].dataset.manual='false';cells[5].dataset.estimated='false';partial.hidden=true;saveAndCalc();
+      previousState=state.value;saveAndCalc()
     });
     remove.addEventListener('click',()=>{const label=picker.dataset.value||'cette ligne';if(confirm(`Retirer « ${label} » du suivi ?`)){tr.remove();saveAndCalc()}});
     $('#rows').append(tr);
     return tr;
   }
+  $('#cancelListingExpiry').addEventListener('click',()=>pendingListingExpiry?.cancel());
+  $('#listingExpiryDialog').addEventListener('cancel',event=>{event.preventDefault();pendingListingExpiry?.cancel()});
+  $('#listingExpiryForm').addEventListener('submit',event=>pendingListingExpiry?.submit(event));
   function collect(){
     return [...$('#rows').rows].map(r=>({
       item:r.querySelector('.item-picker').dataset.value,lot:r.querySelector('.lot-note').value,q:numeric(r.querySelector('.q')),buy:numeric(r.querySelector('.buy')),sell:numeric(r.querySelector('.sell')),
       state:r.querySelector('.operation-state').value,taxRate:numeric(r.querySelector('.rate')),taxPaid:r.querySelector('.paid').dataset.manual==='true'?numeric(r.querySelector('.paid')):null,taxEstimated:r.querySelector('.paid').dataset.estimated==='true',
-      soldQty:numeric(r.querySelector('.sold-qty')),soldPrice:null,listedQty:numeric(r.querySelector('.listed-qty')),listingCarry:r._listingCarry||0,stockTaxCarry:r._stockTaxCarry||0,listingHistory:r._listingHistory||[],include:r.querySelector('input[type=checkbox]').checked
+      soldPrice:null,listedQty:numeric(r.querySelector('.listed-qty')),listingCarry:r._listingCarry||0,stockTaxCarry:r._stockTaxCarry||0,listingHistory:r._listingHistory||[],listingOrigin:r._listingOrigin||null,include:r.querySelector('input[type=checkbox]').checked
     }));
   }
   function renderOperationPage(){
     const rows=[...$('#rows').rows],query=normalized($('#operationSearch').value),stateFilter=$('#operationStateFilter').value;
     const matching=rows.filter(row=>{
       const item=row.querySelector('.item-picker').dataset.value||'',note=row.querySelector('.lot-note').value||'',state=row.querySelector('.operation-state').value;
-      const expiredHistory=(row._listingHistory||[]).some(listing=>listing.expired);
-      return (!query||normalized(`${item} ${note}`).includes(query))&&(!stateFilter||(stateFilter==='Invendu expiré'?expiredHistory:state===stateFilter));
+      const history=row._listingHistory||[],expiredHistory=history.some(listing=>listing.expired);
+      const stateMatches=!stateFilter||(stateFilter==='Invendu expiré'?expiredHistory:state===stateFilter);
+      return (!query||normalized(`${item} ${note}`).includes(query))&&stateMatches;
     }).reverse();
     const pageCount=Math.max(1,Math.ceil(matching.length/OPERATIONS_PER_PAGE));
     operationPage=Math.max(0,Math.min(operationPage,pageCount-1));
@@ -418,11 +526,10 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
       const state=r.querySelector('.operation-state').value,include=r.querySelector('input[type=checkbox]').checked,paidInput=r.querySelector('.paid');
       const listingHistory=r._listingHistory||[],hasHistory=listingHistory.length>0;
       const listingCount=Math.max(0,Number(r.querySelector('.listed-qty').value)||0);
-      const active=state==='En vente'||state==='Ventes partielles';
-      const draftSold=state==='Ventes partielles'?Math.max(0,Math.min(listingCount,Number(r.querySelector('.sold-qty').value)||0)):0;
-      const currentRemaining=active?Math.max(0,listingCount-draftSold):0;
+      const active=state==='En vente';
+      const currentRemaining=active?listingCount:0;
       const listingGross=s===null?null:listingCount*s,autoTax=listingGross===null?null:listingGross*rate;
-      if(paidInput.dataset.manual!=='true')paidInput.value=autoTax===null?'':String(Math.round(autoTax*100)/100);
+      if(paidInput.dataset.manual!=='true'||paidInput.dataset.estimated==='true')paidInput.value=autoTax===null?'':String(Math.round(autoTax*100)/100);
       const paid=paidInput.dataset.manual==='true'?numeric(paidInput):autoTax;
       const currentFee=paid??0,currentBasis=currentFee+(Number(r._listingCarry)||0),currentRemainFee=listingCount?currentBasis*currentRemaining/listingCount:0;
       let lotRealized=0,historySold=0,estimated=false;
@@ -443,16 +550,18 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
       const expCell=r.querySelector('.expected'),realCell=r.querySelector('.realized'),beCell=r.querySelector('.breakEven');
       expCell.textContent=exp===null?'—':money(exp);expCell.className='money expected '+(exp===null?'muted':exp>=0?'good':'bad');
       realCell.textContent=hasReal?(estimated?'≈ ':'')+money(lotRealized):'—';realCell.className='money realized '+(!hasReal?'muted':lotRealized>=0?'good':'bad');
-      beCell.textContent=rate<1?money(b/(1-rate)):'—';
-      if(active){r.querySelector('.partial-hint').textContent=state==='Ventes partielles'?`À valider : ${draftSold} vendue(s) · ${currentRemaining} à remettre au stock après validation · taxe existante conservée.`:`Annonce active : ${listingCount} unité(s) · taxe déjà affectée : ${money(currentRemainFee)}`}
+      const feePerItem=active&&listingCount>0?currentFee/listingCount:0,carryPerItem=active&&listingCount>0?(Number(r._listingCarry)||0)/listingCount:state==='En stock'&&q>0?(Number(r._stockTaxCarry)||0)/q:0;
+      const fixedTax=active&&paidInput.dataset.manual==='true'&&paidInput.dataset.estimated!=='true';
+      const minimumPrice=state==='En vente'?(fixedTax?b+feePerItem+carryPerItem:rate<1?(b+carryPerItem)/(1-rate):null):state==='En stock'&&rate<1?(b+carryPerItem)/(1-rate):null;
+      beCell.textContent=minimumPrice===null?'—':money(minimumPrice);
       const lotStockQty=!hasHistory&&state==='Vendu'?0:Math.max(0,q-historySold-(active?listingCount:0));
       const lotRealizedCapital=historySold*b+legacyCapital;
       let statusText='En stock',statusClass='stock';
-      if(active){statusText=state==='Ventes partielles'?'Vente partielle à valider':'Annonce en cours';statusClass=state==='Ventes partielles'?'partial':'active'}
-      else if(state==='Invendu expiré'){statusText='Annonce expirée';statusClass='expired'}
+      if(active){statusText='Annonce en cours';statusClass='active'}
+      else if(state==='Invendu expiré'){statusText='EXPIRÉE · opération clôturée';statusClass='expired'}
       else if(state==='Vendu'&&hasHistory&&lotStockQty>0){statusText=`Annonce vendue · ${lotStockQty} en stock`;statusClass='returned'}
       else if(state==='Vendu'||(hasHistory&&lotStockQty===0)){statusText='Opération terminée';statusClass='complete'}
-      else if(hasHistory){const last=listingHistory[listingHistory.length-1];statusText=last.expired?`Annonce expirée · ${lotStockQty} en stock`:last.returned&&last.soldQty?`Vente partielle enregistrée · ${lotStockQty} en stock`:`Annonce clôturée · ${lotStockQty} en stock`;statusClass=last.expired?'expired':'returned'}
+      else if(hasHistory){const last=listingHistory[listingHistory.length-1];statusText=last.expired?`EXPIRÉE · ${lotStockQty} en stock`:`Annonce clôturée · ${lotStockQty} en stock`;statusClass=last.expired?'expired':'returned'}
       const statusBadge=r._statusBadge;statusBadge.textContent=statusText;statusBadge.className=`row-status-badge ${statusClass}`;
       const historicalTax=listingHistory.reduce((sum,listing)=>sum+(Number(listing.taxPaid)||0),0);
       const currentTax=active?(paid||0):(!hasHistory&&(state==='Vendu'||state==='Invendu expiré')?(paid||0):0);
@@ -472,12 +581,21 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
   function saveAndCalc(){
     try{calc()}catch(error){logDev('error',`Recalcul interrompu : ${error?.stack||error}`)}
     try{renderOperationPage()}catch(error){logDev('error',`Affichage des opérations interrompu : ${error?.stack||error}`)}
-    try{const data={version:4,defaultTax:Number($('#defaultTax').value)||0,customItems,rows:collect(),observations,estimatesImported};localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}
-    catch(error){logDev('error',`Sauvegarde automatique impossible : ${error?.message||error}`)}
+    try{
+      const data={version:4,defaultTax:Number($('#defaultTax').value)||0,customItems,rows:collect(),observations,estimatesImported},serialized=JSON.stringify(data);
+      let previous=null;try{previous=localStorage.getItem(STORAGE_KEY)}catch{}
+      let backupError=null;
+      if(previous){try{const prior=JSON.parse(previous);if(prior&&Array.isArray(prior.rows))localStorage.setItem(AUTO_BACKUP_KEY,previous)}catch(error){backupError=error}}
+      try{localStorage.setItem(STORAGE_KEY,serialized)}catch(error){throw error}
+      if(!previous){try{localStorage.setItem(AUTO_BACKUP_KEY,serialized)}catch(error){backupError=error}}
+      const status=$('#saveStatus');if(status){status.classList.toggle('error',Boolean(backupError));status.textContent=backupError?'Données enregistrées, mais la copie de secours n’a pas pu être actualisée. Exporte une sauvegarde.':'Sauvegarde automatique enregistrée · copie de secours conservée.'}
+    }catch(error){const status=$('#saveStatus');if(status){status.classList.add('error');status.textContent=`ÉCHEC DE SAUVEGARDE — tes dernières modifications ne sont pas enregistrées. Exporte une sauvegarde maintenant. (${error?.message||'stockage indisponible'})`}logDev('error',`Sauvegarde automatique impossible : ${error?.message||error}`)}
   }
   function loadData(){
-    let data=null;try{data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null')}catch{}
-    if(!data){try{data=JSON.parse(localStorage.getItem(LEGACY_KEY)||'null')}catch{}}
+    const parseSaved=raw=>{try{const parsed=JSON.parse(raw||'null');return parsed&&[2,3,4].includes(parsed.version)&&Array.isArray(parsed.rows)?parsed:null}catch{return null}};
+    let data=null,fromBackup=false;try{data=parseSaved(localStorage.getItem(STORAGE_KEY))}catch{}
+    if(!data){try{data=parseSaved(localStorage.getItem(LEGACY_KEY))}catch{}}
+    if(!data){try{data=parseSaved(localStorage.getItem(AUTO_BACKUP_KEY));fromBackup=Boolean(data)}catch{}}
     if(data&&data.version===2&&Array.isArray(data.rows)){
       data.rows=data.rows.map(r=>{if(r.item)return r;const bits=String(r.name||'').split(' — ');return {...r,item:bits[0],lot:bits.slice(1).join(' — ')}});
       data.version=3;data.customItems=data.customItems||[];
@@ -485,15 +603,16 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
     if(!data||![3,4].includes(data.version)||!Array.isArray(data.rows))data=seed;
     const oldSchema=data.version===3;
     data.rows=data.rows.map(entry=>{
-      const renamed=normalized(entry.item)==='wood helmet'?{...entry,item:'Hood Helmet'}:normalized(entry.item)==='arpagophytum'?{...entry,item:'Harpagophytum'}:entry;
-      return oldSchema?migratePartialRow(renamed,data.defaultTax):renamed;
+      const renamed={...entry,item:normalizeStoredItemLabel(entry.item)};
+      if(oldSchema)return migratePartialRow(renamed,data.defaultTax);
+      return renamed.state==='Ventes partielles'?{...renamed,state:'En vente',soldQty:null}:renamed;
     });
-    customItems=Array.isArray(data.customItems)?data.customItems:[];
-    observations=Array.isArray(data.observations)?data.observations.map(entry=>normalized(entry.item)==='wood helmet'?{...entry,item:'Hood Helmet'}:normalized(entry.item)==='arpagophytum'?{...entry,item:'Harpagophytum'}:entry):[];
-    if(customItems.some(item=>normalized(item)==='wood helmet'))customItems=customItems.map(item=>normalized(item)==='wood helmet'?'Hood Helmet':item);
+    customItems=Array.isArray(data.customItems)?data.customItems.map(normalizeStoredItemLabel):[];itemCatalogCache=null;
+    observations=Array.isArray(data.observations)?data.observations.map(entry=>({...entry,item:normalizeStoredItemLabel(entry.item)})):[];
     estimatesImported=data.estimatesImported===true;
     importFairValuesAsObservations();
     $('#defaultTax').value=data.defaultTax??3.5;data.rows.forEach(makeRow);calc();
+    if(fromBackup){const status=$('#saveStatus');status.classList.add('error');status.textContent='La sauvegarde principale était invalide : copie de secours chargée. Vérifie les données puis exporte une sauvegarde.'}
   }
   observationPicker=makePicker('');$('#observationItem').append(observationPicker);
   $('#addObservation').addEventListener('click',addObservation);
@@ -514,10 +633,18 @@ input,select{border-radius:4px;background:#202722;border-color:#465047;color:#e8
   document.addEventListener('click',e=>{if(!e.target.closest('.item-picker'))document.querySelectorAll('.item-menu').forEach(m=>m.classList.add('hidden'))});
   $('#export').addEventListener('click',()=>{const data={version:4,defaultTax:Number($('#defaultTax').value)||0,customItems,rows:collect(),observations,estimatesImported};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='suivi-achats-reventes.json';a.click();URL.revokeObjectURL(a.href)});
   $('#importButton').addEventListener('click',()=>$('#importFile').click());
+  $('#restoreAutoBackup').addEventListener('click',()=>{
+    const status=$('#saveStatus');let raw=null,saved=null;
+    try{raw=localStorage.getItem(AUTO_BACKUP_KEY);saved=raw?JSON.parse(raw):null}catch{}
+    if(!saved||![2,3,4].includes(saved.version)||!Array.isArray(saved.rows)){status.classList.add('error');status.textContent='Aucune copie automatique valide à restaurer.';return}
+    if(!confirm('Restaurer la copie automatique ? L’état actuel sera remplacé.'))return;
+    try{const current=localStorage.getItem(STORAGE_KEY);if(current)localStorage.setItem(`${STORAGE_KEY}-before-restore`,current);localStorage.setItem(STORAGE_KEY,raw);$('#rows').replaceChildren();customItems=[];observations=[];estimatesImported=false;operationPage=0;loadData();renderOperationPage();renderObservations();saveAndCalc();status.classList.remove('error');status.textContent='Copie automatique restaurée. Vérifie les opérations affichées.'}
+    catch(error){status.classList.add('error');status.textContent=`Restauration impossible : ${error?.message||'stockage indisponible'}`;logDev('error',`Restauration de la copie automatique impossible : ${error?.message||error}`)}
+  });
   $('#exportObservations').addEventListener('click',()=>{const data={format:'paladium-market-tracker-observations',version:1,customItems,observations};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='items-observes-paladium.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);$('#observationTransferStatus').textContent=`${observations.length} observation(s) exportée(s), sans les opérations.`});
   $('#importObservationsButton').addEventListener('click',()=>$('#importObservationsFile').click());
-  $('#importObservationsFile').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;const status=$('#observationTransferStatus');try{const data=JSON.parse(await file.text()),incoming=Array.isArray(data)?data:data?.observations;if(!Array.isArray(incoming))throw new Error('Le fichier ne contient pas de liste d’items observés.');const keyOf=entry=>entry.id?`id:${entry.id}`:`legacy:${normalized(entry.item)}|${entry.price??''}|${entry.priceLabel??''}|${entry.kind??''}|${entry.note??''}|${entry.observedAt??entry.dateLabel??''}`;const merged=new Map(observations.map(entry=>[keyOf(entry),entry]));let added=0,duplicates=0;incoming.forEach(raw=>{if(!raw||typeof raw!=='object')return;const item=normalized(raw.item)==='wood helmet'?'Hood Helmet':normalized(raw.item)==='arpagophytum'?'Harpagophytum':String(raw.item||'').trim(),price=raw.price===null||raw.price===undefined||raw.price===''?null:Number(raw.price);if(!item||(price!==null&&(!Number.isFinite(price)||price<0))||(price===null&&!raw.priceLabel))return;const entry={...raw,item,...(price===null?{}:{price})},key=keyOf(entry);if(merged.has(key))duplicates++;else added++;merged.set(key,entry)});observations=[...merged.values()];const incomingCustom=Array.isArray(data?.customItems)?data.customItems:[];const customMap=new Map(customItems.map(item=>[normalized(item),item]));[...incomingCustom,...observations.map(entry=>entry.item)].forEach(item=>{const name=String(item||'').trim();if(name&&!allItems().some(existing=>normalized(existing)===normalized(name)))customMap.set(normalized(name),name)});customItems=[...customMap.values()];renderObservations();saveAndCalc();status.className='observation-transfer-status';status.textContent=`${added} observation(s) ajoutée(s), ${duplicates} doublon(s) mis à jour. Les opérations n’ont pas été modifiées.`}catch(error){logDev('error',`Import des items observés impossible : ${error?.message||error}`);status.className='observation-transfer-status danger';status.textContent=`Import impossible : ${error?.message||'fichier invalide'}`}finally{e.target.value=''}});
-  $('#importFile').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{const data=JSON.parse(await file.text());if(!Array.isArray(data.rows))throw new Error('Format invalide');const oldSchema=(Number(data.version)||3)===3;data.rows=data.rows.map(row=>oldSchema?migratePartialRow(row,data.defaultTax??3.5):row);$('#rows').replaceChildren();$('#defaultTax').value=data.defaultTax??3.5;customItems=Array.isArray(data.customItems)?data.customItems:[];observations=Array.isArray(data.observations)?data.observations.map(entry=>normalized(entry.item)==='wood helmet'?{...entry,item:'Hood Helmet'}:entry):[];estimatesImported=data.estimatesImported===true;importFairValuesAsObservations();data.rows.forEach(makeRow);renderObservations();saveAndCalc()}catch{}e.target.value=''});
+  $('#importObservationsFile').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;const status=$('#observationTransferStatus');try{const data=JSON.parse(await file.text()),incoming=Array.isArray(data)?data:data?.observations;if(!Array.isArray(incoming))throw new Error('Le fichier ne contient pas de liste d’items observés.');const keyOf=entry=>entry.id?`id:${entry.id}`:`legacy:${normalized(entry.item)}|${entry.price??''}|${entry.priceLabel??''}|${entry.kind??''}|${entry.note??''}|${entry.observedAt??entry.dateLabel??''}`;const merged=new Map(observations.map(entry=>[keyOf(entry),entry]));let added=0,duplicates=0;incoming.forEach(raw=>{if(!raw||typeof raw!=='object')return;const item=normalizeStoredItemLabel(raw.item),price=raw.price===null||raw.price===undefined||raw.price===''?null:Number(raw.price);if(!item||(price!==null&&(!Number.isFinite(price)||price<0))||(price===null&&!raw.priceLabel))return;const entry={...raw,item,...(price===null?{}:{price})},key=keyOf(entry);if(merged.has(key))duplicates++;else added++;merged.set(key,entry)});observations=[...merged.values()];const incomingCustom=Array.isArray(data?.customItems)?data.customItems:[];const customMap=new Map(customItems.map(item=>[normalized(item),item]));[...incomingCustom,...observations.map(entry=>entry.item)].forEach(item=>{const name=String(item||'').trim();if(name&&!allItems().some(existing=>normalized(existing)===normalized(name)))customMap.set(normalized(name),name)});customItems=[...customMap.values()];itemCatalogCache=null;renderObservations();saveAndCalc();status.className='observation-transfer-status';status.textContent=`${added} observation(s) ajoutée(s), ${duplicates} doublon(s) mis à jour. Les opérations n’ont pas été modifiées.`}catch(error){logDev('error',`Import des items observés impossible : ${error?.message||error}`);status.className='observation-transfer-status danger';status.textContent=`Import impossible : ${error?.message||'fichier invalide'}`}finally{e.target.value=''}});
+  $('#importFile').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{const data=JSON.parse(await file.text());if(!Array.isArray(data.rows))throw new Error('Format invalide');const oldSchema=(Number(data.version)||3)===3;data.rows=data.rows.map(row=>{const normalizedRow={...row,item:normalizeStoredItemLabel(row.item)};if(oldSchema)return migratePartialRow(normalizedRow,data.defaultTax??3.5);return normalizedRow.state==='Ventes partielles'?{...normalizedRow,state:'En vente',soldQty:null}:normalizedRow});$('#rows').replaceChildren();$('#defaultTax').value=data.defaultTax??3.5;customItems=Array.isArray(data.customItems)?data.customItems.map(normalizeStoredItemLabel):[];itemCatalogCache=null;observations=Array.isArray(data.observations)?data.observations.map(entry=>({...entry,item:normalizeStoredItemLabel(entry.item)})):[];estimatesImported=data.estimatesImported===true;importFairValuesAsObservations();data.rows.forEach(makeRow);renderObservations();saveAndCalc()}catch{}e.target.value=''});
   try{
     loadData();
     renderDevLogs();
